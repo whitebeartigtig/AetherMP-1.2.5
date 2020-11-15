@@ -452,7 +452,7 @@ public final class PlayerAPI
     private final PlayerBase[] overrideWriteEntityToNBTHooks;
     private final PlayerBase[] afterWriteEntityToNBTHooks;
     protected final boolean isWriteEntityToNBTModded;
-    protected final EntityPlayerSP player;
+    protected final EntityPlayer player;
     private static final List beforeLocalConstructingHookTypes;
     private static final List afterLocalConstructingHookTypes;
     private final PlayerBase[] beforeLocalConstructingHooks;
@@ -1330,7 +1330,7 @@ public final class PlayerAPI
         }
     }
     
-    public static PlayerAPI create(final EntityPlayerSP var0) {
+    public static PlayerAPI create(final EntityPlayer var0) {
         if (PlayerAPI.allBaseConstructors.size() > 0) {
             if (!PlayerAPI.initialized) {
                 initialize();
@@ -1535,13 +1535,13 @@ public final class PlayerAPI
         PlayerAPI.initialized = true;
     }
     
-    public static void beforeLocalConstructing(final EntityPlayerSP var0, final Minecraft var1, final World var2, final Session var3, final int var4) {
+    public static void beforeLocalConstructing(final EntityPlayer var0, final Minecraft var1, final World var2, final Session var3, final int var4) {
         if (var0.playerAPI != null) {
             var0.playerAPI.beforeLocalConstructing(var1, var2, var3, var4);
         }
     }
     
-    public static void afterLocalConstructing(final EntityPlayerSP var0, final Minecraft var1, final World var2, final Session var3, final int var4) {
+    public static void afterLocalConstructing(final EntityPlayer var0, final Minecraft var1, final World var2, final Session var3, final int var4) {
         if (var0.playerAPI != null) {
             var0.playerAPI.afterLocalConstructing(var1, var2, var3, var4);
         }
@@ -1551,7 +1551,7 @@ public final class PlayerAPI
         new PlayerBaseSorter(var0, var1, var2, var3).Sort();
     }
     
-    private PlayerAPI(final EntityPlayerSP var1) {
+    private PlayerAPI(final EntityPlayer var1) {
         this.allBaseObjects = new Hashtable();
         this.unmodifiableAllBaseIds = Collections.unmodifiableSet(this.allBaseObjects.keySet());
         this.player = var1;
@@ -1865,7 +1865,7 @@ public final class PlayerAPI
         return this.unmodifiableAllBaseIds;
     }
     
-    protected static void addExhaustion(final EntityPlayerSP var0, final float var1) {
+    protected static void addExhaustion(final EntityPlayer var0, final float var1) {
         if (var0.playerAPI != null) {
             var0.playerAPI.addExhaustion(var1);
         }
@@ -1909,7 +1909,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void addMovementStat(final EntityPlayerSP var0, final double var1, final double var3, final double var5) {
+    protected static void addMovementStat(final EntityPlayer var0, final double var1, final double var3, final double var5) {
         if (var0.playerAPI != null) {
             var0.playerAPI.addMovementStat(var1, var3, var5);
         }
@@ -1953,7 +1953,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void addStat(final EntityPlayerSP var0, final StatBase var1, final int var2) {
+    protected static void addStat(final EntityPlayer var0, final StatBase var1, final int var2) {
         if (var0.playerAPI != null) {
             var0.playerAPI.addStat(var1, var2);
         }
@@ -1997,7 +1997,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static boolean attackEntityFrom(final EntityPlayerSP var0, final DamageSource var1, final int var2) {
+    protected static boolean attackEntityFrom(final EntityPlayer var0, final DamageSource var1, final int var2) {
         boolean var3;
         if (var0.playerAPI != null) {
             var3 = var0.playerAPI.attackEntityFrom(var1, var2);
@@ -2045,7 +2045,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void alertWolves(final EntityPlayerSP var0, final EntityLiving var1, final boolean var2) {
+    protected static void alertWolves(final EntityPlayer var0, final EntityLiving var1, final boolean var2) {
         if (var0.playerAPI != null) {
             var0.playerAPI.alertWolves(var1, var2);
         }
@@ -2089,7 +2089,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void attackTargetEntityWithCurrentItem(final EntityPlayerSP var0, final Entity var1) {
+    protected static void attackTargetEntityWithCurrentItem(final EntityPlayer var0, final Entity var1) {
         if (var0.playerAPI != null) {
             var0.playerAPI.attackTargetEntityWithCurrentItem(var1);
         }
@@ -2133,7 +2133,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static boolean canBreatheUnderwater(final EntityPlayerSP var0) {
+    protected static boolean canBreatheUnderwater(final EntityPlayer var0) {
         boolean var;
         if (var0.playerAPI != null) {
             var = var0.playerAPI.canBreatheUnderwater();
@@ -2181,7 +2181,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static boolean canHarvestBlock(final EntityPlayerSP var0, final Block var1) {
+    protected static boolean canHarvestBlock(final EntityPlayer var0, final Block var1) {
         boolean var2;
         if (var0.playerAPI != null) {
             var2 = var0.playerAPI.canHarvestBlock(var1);
@@ -2229,7 +2229,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static boolean canPlayerEdit(final EntityPlayerSP var0, final int var1, final int var2, final int var3) {
+    protected static boolean canPlayerEdit(final EntityPlayer var0, final int var1, final int var2, final int var3) {
         boolean var4;
         if (var0.playerAPI != null) {
             var4 = var0.playerAPI.canPlayerEdit(var1, var2, var3);
@@ -2277,7 +2277,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static boolean canTriggerWalking(final EntityPlayerSP var0) {
+    protected static boolean canTriggerWalking(final EntityPlayer var0) {
         boolean var;
         if (var0.playerAPI != null) {
             var = var0.playerAPI.canTriggerWalking();
@@ -2325,7 +2325,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void closeScreen(final EntityPlayerSP var0) {
+    protected static void closeScreen(final EntityPlayer var0) {
         if (var0.playerAPI != null) {
             var0.playerAPI.closeScreen();
         }
@@ -2369,7 +2369,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void damageEntity(final EntityPlayerSP var0, final DamageSource var1, final int var2) {
+    protected static void damageEntity(final EntityPlayer var0, final DamageSource var1, final int var2) {
         if (var0.playerAPI != null) {
             var0.playerAPI.damageEntity(var1, var2);
         }
@@ -2413,7 +2413,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void displayGUIBrewingStand(final EntityPlayerSP var0, final TileEntityBrewingStand var1) {
+    protected static void displayGUIBrewingStand(final EntityPlayer var0, final TileEntityBrewingStand var1) {
         if (var0.playerAPI != null) {
             var0.playerAPI.displayGUIBrewingStand(var1);
         }
@@ -2457,7 +2457,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void displayGUIChest(final EntityPlayerSP var0, final IInventory var1) {
+    protected static void displayGUIChest(final EntityPlayer var0, final IInventory var1) {
         if (var0.playerAPI != null) {
             var0.playerAPI.displayGUIChest(var1);
         }
@@ -2501,7 +2501,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void displayGUIDispenser(final EntityPlayerSP var0, final TileEntityDispenser var1) {
+    protected static void displayGUIDispenser(final EntityPlayer var0, final TileEntityDispenser var1) {
         if (var0.playerAPI != null) {
             var0.playerAPI.displayGUIDispenser(var1);
         }
@@ -2545,7 +2545,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void displayGUIEditSign(final EntityPlayerSP var0, final TileEntitySign var1) {
+    protected static void displayGUIEditSign(final EntityPlayer var0, final TileEntitySign var1) {
         if (var0.playerAPI != null) {
             var0.playerAPI.displayGUIEditSign(var1);
         }
@@ -2589,7 +2589,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void displayGUIEnchantment(final EntityPlayerSP var0, final int var1, final int var2, final int var3) {
+    protected static void displayGUIEnchantment(final EntityPlayer var0, final int var1, final int var2, final int var3) {
         if (var0.playerAPI != null) {
             var0.playerAPI.displayGUIEnchantment(var1, var2, var3);
         }
@@ -2633,7 +2633,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void displayGUIFurnace(final EntityPlayerSP var0, final TileEntityFurnace var1) {
+    protected static void displayGUIFurnace(final EntityPlayer var0, final TileEntityFurnace var1) {
         if (var0.playerAPI != null) {
             var0.playerAPI.displayGUIFurnace(var1);
         }
@@ -2677,7 +2677,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void displayWorkbenchGUI(final EntityPlayerSP var0, final int var1, final int var2, final int var3) {
+    protected static void displayWorkbenchGUI(final EntityPlayer var0, final int var1, final int var2, final int var3) {
         if (var0.playerAPI != null) {
             var0.playerAPI.displayWorkbenchGUI(var1, var2, var3);
         }
@@ -2721,7 +2721,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static EntityItem dropOneItem(final EntityPlayerSP var0) {
+    protected static EntityItem dropOneItem(final EntityPlayer var0) {
         EntityItem var;
         if (var0.playerAPI != null) {
             var = var0.playerAPI.dropOneItem();
@@ -2769,7 +2769,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static EntityItem dropPlayerItem(final EntityPlayerSP var0, final ItemStack var1) {
+    protected static EntityItem dropPlayerItem(final EntityPlayer var0, final ItemStack var1) {
         EntityItem var2;
         if (var0.playerAPI != null) {
             var2 = var0.playerAPI.dropPlayerItem(var1);
@@ -2817,7 +2817,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static EntityItem dropPlayerItemWithRandomChoice(final EntityPlayerSP var0, final ItemStack var1, final boolean var2) {
+    protected static EntityItem dropPlayerItemWithRandomChoice(final EntityPlayer var0, final ItemStack var1, final boolean var2) {
         EntityItem var3;
         if (var0.playerAPI != null) {
             var3 = var0.playerAPI.dropPlayerItemWithRandomChoice(var1, var2);
@@ -2865,7 +2865,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void fall(final EntityPlayerSP var0, final float var1) {
+    protected static void fall(final EntityPlayer var0, final float var1) {
         if (var0.playerAPI != null) {
             var0.playerAPI.fall(var1);
         }
@@ -2909,7 +2909,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static float getBrightness(final EntityPlayerSP var0, final float var1) {
+    protected static float getBrightness(final EntityPlayer var0, final float var1) {
         float var2;
         if (var0.playerAPI != null) {
             var2 = var0.playerAPI.getBrightness(var1);
@@ -2957,7 +2957,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static int getBrightnessForRender(final EntityPlayerSP var0, final float var1) {
+    protected static int getBrightnessForRender(final EntityPlayer var0, final float var1) {
         int var2;
         if (var0.playerAPI != null) {
             var2 = var0.playerAPI.getBrightnessForRender(var1);
@@ -3005,7 +3005,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static float getCurrentPlayerStrVsBlock(final EntityPlayerSP var0, final Block var1) {
+    protected static float getCurrentPlayerStrVsBlock(final EntityPlayer var0, final Block var1) {
         float var2;
         if (var0.playerAPI != null) {
             var2 = var0.playerAPI.getCurrentPlayerStrVsBlock(var1);
@@ -3053,7 +3053,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static double getDistanceSq(final EntityPlayerSP var0, final double var1, final double var3, final double var5) {
+    protected static double getDistanceSq(final EntityPlayer var0, final double var1, final double var3, final double var5) {
         double var6;
         if (var0.playerAPI != null) {
             var6 = var0.playerAPI.getDistanceSq(var1, var3, var5);
@@ -3101,7 +3101,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static double getDistanceSqToEntity(final EntityPlayerSP var0, final Entity var1) {
+    protected static double getDistanceSqToEntity(final EntityPlayer var0, final Entity var1) {
         double var2;
         if (var0.playerAPI != null) {
             var2 = var0.playerAPI.getDistanceSqToEntity(var1);
@@ -3149,7 +3149,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static float getFOVMultiplier(final EntityPlayerSP var0) {
+    protected static float getFOVMultiplier(final EntityPlayer var0) {
         float var;
         if (var0.playerAPI != null) {
             var = var0.playerAPI.getFOVMultiplier();
@@ -3197,7 +3197,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static String getHurtSound(final EntityPlayerSP var0) {
+    protected static String getHurtSound(final EntityPlayer var0) {
         String var;
         if (var0.playerAPI != null) {
             var = var0.playerAPI.getHurtSound();
@@ -3245,7 +3245,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static int getItemIcon(final EntityPlayerSP var0, final ItemStack var1, final int var2) {
+    protected static int getItemIcon(final EntityPlayer var0, final ItemStack var1, final int var2) {
         int var3;
         if (var0.playerAPI != null) {
             var3 = var0.playerAPI.getItemIcon(var1, var2);
@@ -3293,7 +3293,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static int getSleepTimer(final EntityPlayerSP var0) {
+    protected static int getSleepTimer(final EntityPlayer var0) {
         int var;
         if (var0.playerAPI != null) {
             var = var0.playerAPI.getSleepTimer();
@@ -3341,7 +3341,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static float getSpeedModifier(final EntityPlayerSP var0) {
+    protected static float getSpeedModifier(final EntityPlayer var0) {
         float var;
         if (var0.playerAPI != null) {
             var = var0.playerAPI.getSpeedModifier();
@@ -3389,7 +3389,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static boolean handleLavaMovement(final EntityPlayerSP var0) {
+    protected static boolean handleLavaMovement(final EntityPlayer var0) {
         boolean var;
         if (var0.playerAPI != null) {
             var = var0.playerAPI.handleLavaMovement();
@@ -3437,7 +3437,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static boolean handleWaterMovement(final EntityPlayerSP var0) {
+    protected static boolean handleWaterMovement(final EntityPlayer var0) {
         boolean var;
         if (var0.playerAPI != null) {
             var = var0.playerAPI.handleWaterMovement();
@@ -3485,7 +3485,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void heal(final EntityPlayerSP var0, final int var1) {
+    protected static void heal(final EntityPlayer var0, final int var1) {
         if (var0.playerAPI != null) {
             var0.playerAPI.heal(var1);
         }
@@ -3529,7 +3529,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static boolean isEntityInsideOpaqueBlock(final EntityPlayerSP var0) {
+    protected static boolean isEntityInsideOpaqueBlock(final EntityPlayer var0) {
         boolean var;
         if (var0.playerAPI != null) {
             var = var0.playerAPI.isEntityInsideOpaqueBlock();
@@ -3577,7 +3577,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static boolean isInWater(final EntityPlayerSP var0) {
+    protected static boolean isInWater(final EntityPlayer var0) {
         boolean var;
         if (var0.playerAPI != null) {
             var = var0.playerAPI.isInWater();
@@ -3625,7 +3625,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static boolean isInsideOfMaterial(final EntityPlayerSP var0, final Material var1) {
+    protected static boolean isInsideOfMaterial(final EntityPlayer var0, final Material var1) {
         boolean var2;
         if (var0.playerAPI != null) {
             var2 = var0.playerAPI.isInsideOfMaterial(var1);
@@ -3673,7 +3673,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static boolean isOnLadder(final EntityPlayerSP var0) {
+    protected static boolean isOnLadder(final EntityPlayer var0) {
         boolean var;
         if (var0.playerAPI != null) {
             var = var0.playerAPI.isOnLadder();
@@ -3721,7 +3721,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static boolean isSneaking(final EntityPlayerSP var0) {
+    protected static boolean isSneaking(final EntityPlayer var0) {
         boolean var;
         if (var0.playerAPI != null) {
             var = var0.playerAPI.isSneaking();
@@ -3769,7 +3769,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static boolean isSprinting(final EntityPlayerSP var0) {
+    protected static boolean isSprinting(final EntityPlayer var0) {
         boolean var;
         if (var0.playerAPI != null) {
             var = var0.playerAPI.isSprinting();
@@ -3817,7 +3817,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void jump(final EntityPlayerSP var0) {
+    protected static void jump(final EntityPlayer var0) {
         if (var0.playerAPI != null) {
             var0.playerAPI.jump();
         }
@@ -3861,7 +3861,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void knockBack(final EntityPlayerSP var0, final Entity var1, final int var2, final double var3, final double var5) {
+    protected static void knockBack(final EntityPlayer var0, final Entity var1, final int var2, final double var3, final double var5) {
         if (var0.playerAPI != null) {
             var0.playerAPI.knockBack(var1, var2, var3, var5);
         }
@@ -3905,7 +3905,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void moveEntity(final EntityPlayerSP var0, final double var1, final double var3, final double var5) {
+    protected static void moveEntity(final EntityPlayer var0, final double var1, final double var3, final double var5) {
         if (var0.playerAPI != null) {
             var0.playerAPI.moveEntity(var1, var3, var5);
         }
@@ -3949,7 +3949,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void moveEntityWithHeading(final EntityPlayerSP var0, final float var1, final float var2) {
+    protected static void moveEntityWithHeading(final EntityPlayer var0, final float var1, final float var2) {
         if (var0.playerAPI != null) {
             var0.playerAPI.moveEntityWithHeading(var1, var2);
         }
@@ -3993,7 +3993,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void moveFlying(final EntityPlayerSP var0, final float var1, final float var2, final float var3) {
+    protected static void moveFlying(final EntityPlayer var0, final float var1, final float var2, final float var3) {
         if (var0.playerAPI != null) {
             var0.playerAPI.moveFlying(var1, var2, var3);
         }
@@ -4037,7 +4037,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void onDeath(final EntityPlayerSP var0, final DamageSource var1) {
+    protected static void onDeath(final EntityPlayer var0, final DamageSource var1) {
         if (var0.playerAPI != null) {
             var0.playerAPI.onDeath(var1);
         }
@@ -4081,7 +4081,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void onLivingUpdate(final EntityPlayerSP var0) {
+    protected static void onLivingUpdate(final EntityPlayer var0) {
         if (var0.playerAPI != null) {
             var0.playerAPI.onLivingUpdate();
         }
@@ -4125,7 +4125,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void onKillEntity(final EntityPlayerSP var0, final EntityLiving var1) {
+    protected static void onKillEntity(final EntityPlayer var0, final EntityLiving var1) {
         if (var0.playerAPI != null) {
             var0.playerAPI.onKillEntity(var1);
         }
@@ -4169,7 +4169,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void onUpdate(final EntityPlayerSP var0) {
+    protected static void onUpdate(final EntityPlayer var0) {
         if (var0.playerAPI != null) {
             var0.playerAPI.onUpdate();
         }
@@ -4213,7 +4213,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void playStepSound(final EntityPlayerSP var0, final int var1, final int var2, final int var3, final int var4) {
+    protected static void playStepSound(final EntityPlayer var0, final int var1, final int var2, final int var3, final int var4) {
         if (var0.playerAPI != null) {
             var0.playerAPI.playStepSound(var1, var2, var3, var4);
         }
@@ -4257,7 +4257,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static boolean pushOutOfBlocks(final EntityPlayerSP var0, final double var1, final double var3, final double var5) {
+    protected static boolean pushOutOfBlocks(final EntityPlayer var0, final double var1, final double var3, final double var5) {
         boolean var6;
         if (var0.playerAPI != null) {
             var6 = var0.playerAPI.pushOutOfBlocks(var1, var3, var5);
@@ -4305,7 +4305,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static MovingObjectPosition rayTrace(final EntityPlayerSP var0, final double var1, final float var3) {
+    protected static MovingObjectPosition rayTrace(final EntityPlayer var0, final double var1, final float var3) {
         MovingObjectPosition var4;
         if (var0.playerAPI != null) {
             var4 = var0.playerAPI.rayTrace(var1, var3);
@@ -4353,7 +4353,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void readEntityFromNBT(final EntityPlayerSP var0, final NBTTagCompound var1) {
+    protected static void readEntityFromNBT(final EntityPlayer var0, final NBTTagCompound var1) {
         if (var0.playerAPI != null) {
             var0.playerAPI.readEntityFromNBT(var1);
         }
@@ -4397,7 +4397,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void respawnPlayer(final EntityPlayerSP var0) {
+    protected static void respawnPlayer(final EntityPlayer var0) {
         if (var0.playerAPI != null) {
             var0.playerAPI.respawnPlayer();
         }
@@ -4441,7 +4441,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void sendChatMessage(final EntityPlayerSP var0, final String var1) {
+    protected static void sendChatMessage(final EntityPlayer var0, final String var1) {
         if (var0.playerAPI != null) {
             var0.playerAPI.sendChatMessage(var1);
         }
@@ -4485,7 +4485,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void setDead(final EntityPlayerSP var0) {
+    protected static void setDead(final EntityPlayer var0) {
         if (var0.playerAPI != null) {
             var0.playerAPI.setDead();
         }
@@ -4529,7 +4529,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void setPositionAndRotation(final EntityPlayerSP var0, final double var1, final double var3, final double var5, final float var7, final float var8) {
+    protected static void setPositionAndRotation(final EntityPlayer var0, final double var1, final double var3, final double var5, final float var7, final float var8) {
         if (var0.playerAPI != null) {
             var0.playerAPI.setPositionAndRotation(var1, var3, var5, var7, var8);
         }
@@ -4573,8 +4573,8 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static EnumStatus sleepInBedAt(final EntityPlayerSP var0, final int var1, final int var2, final int var3) {
-        EnumStatus var4;
+    protected static EnumBedResult sleepInBedAt(final EntityPlayer var0, final int var1, final int var2, final int var3) {
+        EnumBedResult var4;
         if (var0.playerAPI != null) {
             var4 = var0.playerAPI.sleepInBedAt(var1, var2, var3);
         }
@@ -4584,13 +4584,13 @@ public final class PlayerAPI
         return var4;
     }
     
-    protected EnumStatus sleepInBedAt(final int var1, final int var2, final int var3) {
+    protected EnumBedResult sleepInBedAt(final int var1, final int var2, final int var3) {
         if (this.beforeSleepInBedAtHooks != null) {
             for (int var4 = this.beforeSleepInBedAtHooks.length - 1; var4 >= 0; --var4) {
                 this.beforeSleepInBedAtHooks[var4].beforeSleepInBedAt(var1, var2, var3);
             }
         }
-        EnumStatus var5;
+        EnumBedResult var5;
         if (this.overrideSleepInBedAtHooks != null) {
             var5 = this.overrideSleepInBedAtHooks[this.overrideSleepInBedAtHooks.length - 1].sleepInBedAt(var1, var2, var3);
         }
@@ -4621,7 +4621,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void swingItem(final EntityPlayerSP var0) {
+    protected static void swingItem(final EntityPlayer var0) {
         if (var0.playerAPI != null) {
             var0.playerAPI.swingItem();
         }
@@ -4665,7 +4665,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void updateEntityActionState(final EntityPlayerSP var0) {
+    protected static void updateEntityActionState(final EntityPlayer var0) {
         if (var0.playerAPI != null) {
             var0.playerAPI.updateEntityActionState();
         }
@@ -4709,7 +4709,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void writeEntityToNBT(final EntityPlayerSP var0, final NBTTagCompound var1) {
+    protected static void writeEntityToNBT(final EntityPlayer var0, final NBTTagCompound var1) {
         if (var0.playerAPI != null) {
             var0.playerAPI.writeEntityToNBT(var1);
         }
