@@ -1,0 +1,244 @@
+package net.minecraft.server;
+
+import java.util.*;
+
+public class AetherBlocks
+{
+    public static final String dir = "/aether/blocks/";
+    public static Block Portal;
+    public static Block Dirt;
+    public static Block Grass;
+    public static Block Quicksoil;
+    public static Block Holystone;
+    public static Block Icestone;
+    public static Block Aercloud;
+    public static Block Aerogel;
+    public static Block Log;
+    public static Block Plank;
+    public static Block SkyrootLeaves;
+    public static Block GoldenOakLeaves;
+    public static Block SkyrootSapling;
+    public static Block GoldenOakSapling;
+    public static Block AmbrosiumOre;
+    public static Block AmbrosiumTorch;
+    public static Block ZaniteOre;
+    public static Block GravititeOre;
+    public static Block EnchantedGravitite;
+    public static Block Enchanter;
+    public static Block Incubator;
+    public static Block Trap;
+    public static Block ChestMimic;
+    public static Block TreasureChest;
+    public static Block DungeonStone;
+    public static Block LightDungeonStone;
+    public static Block LockedDungeonStone;
+    public static Block LockedLightDungeonStone;
+    public static Block Pillar;
+    public static Block ZaniteBlock;
+    public static Block QuicksoilGlass;
+    public static Block Freezer;
+    public static Block WhiteFlower;
+    public static Block PurpleFlower;
+    public static Block ChristmasLeaves;
+    public static Block blockPresent;
+    public static Block BerryBush;
+    public static Block BushStem;
+    public static Block BlueLeaves;
+    public static Block HolystoneStairs;
+    public static Block MossyHolystoneStairs;
+    public static Block IcestoneStairs;
+    public static Block PlankStairs;
+    public static Block CarvedStairs;
+    public static Block AngelicStairs;
+    public static Block HellfireStairs;
+    public static Block HolystoneFence;
+    public static Block MossyHolystoneFence;
+    public static Block IcestoneFence;
+    public static Block PlankFence;
+    public static Block CarvedFence;
+    public static Block AngelicFence;
+    public static Block HellfireFence;
+    public static Block SunAltar;
+    
+    public AetherBlocks() {
+        AetherBlocks.Portal = new BlockAetherPortal(mod_Aether.idBlockAetherPortal).a("AetherPortal");
+        AetherBlocks.Dirt = new BlockAetherDirt(mod_Aether.idBlockAetherDirt).a("AetherDirt");
+        AetherBlocks.Grass = new BlockAetherGrass(mod_Aether.idBlockAetherGrass).a("AetherGrass");
+        AetherBlocks.Quicksoil = new BlockQuicksoil(mod_Aether.idBlockQuicksoil).a("Quicksoil");
+        AetherBlocks.Holystone = new BlockHolystone(mod_Aether.idBlockHolystone).a("Holystone");
+        AetherBlocks.HolystoneStairs = new BlockAetherStairs(mod_Aether.idBlockHolystoneStairs, AetherBlocks.Holystone, 0).a("HolystoneStairs").j();
+        AetherBlocks.HolystoneFence = new BlockAetherFence(mod_Aether.idBlockHolystoneFence, 19, Material.STONE).c(0.5f).a("HolystoneFence");
+        AetherBlocks.MossyHolystoneStairs = new BlockAetherStairs(mod_Aether.idBlockMossyHolystoneStairs, AetherBlocks.Holystone, 2).a("MossyHolystoneStairs").j();
+        AetherBlocks.MossyHolystoneFence = new BlockAetherFence(mod_Aether.idBlockMossyHolystoneFence, 30, Material.STONE).c(0.5f).a("MossyHolystoneFence");
+        AetherBlocks.Icestone = new BlockIcestone(mod_Aether.idBlockIcestone).a("Icestone");
+        AetherBlocks.IcestoneStairs = new BlockAetherStairs(mod_Aether.idBlockIcestoneStairs, AetherBlocks.Icestone, 0).a("IcestoneStairs").j();
+        AetherBlocks.IcestoneFence = new BlockAetherFence(mod_Aether.idBlockIcestoneFence, 20, Material.STONE).c(3.0f).a("IcestoneFence");
+        AetherBlocks.Freezer = new BlockFreezer(mod_Aether.idBlockFreezer).a("Freezer");
+        AetherBlocks.WhiteFlower = new BlockAetherFlower(mod_Aether.idBlockWhiteFlower, 43).a("White_Flower");
+        AetherBlocks.PurpleFlower = new BlockAetherFlower(mod_Aether.idBlockPurpleFlower, 36).a("Purple_Flower");
+        AetherBlocks.Aercloud = new BlockAercloud(mod_Aether.idBlockAercloud).a("Aercloud");
+        AetherBlocks.Aerogel = new BlockAerogel(mod_Aether.idBlockAerogel).a("Aerogel");
+        AetherBlocks.QuicksoilGlass = new BlockQuicksoilGlass(mod_Aether.idBlockQuicksoilGlass, 38).a("QuicksoilGlass");
+        AetherBlocks.Log = new BlockAetherLog(mod_Aether.idBlockLog).a("AetherLog");
+        AetherBlocks.Plank = new BlockAetherPlank(mod_Aether.idBlockPlank, 34, Material.WOOD).a("AetherPlank");
+        AetherBlocks.PlankStairs = new BlockAetherStairs(mod_Aether.idBlockPlankStairs, AetherBlocks.Plank, 0).a("PlankStairs").j();
+        AetherBlocks.PlankFence = new BlockAetherFence(mod_Aether.idBlockPlankFence, 34, Material.WOOD).c(2.0f).b(5.0f).a("PlankFence");
+        AetherBlocks.SkyrootLeaves = new BlockAetherLeaves(mod_Aether.idBlockSkyrootLeaves).a("SkyrootLeaves");
+        AetherBlocks.GoldenOakLeaves = new BlockAetherLeaves(mod_Aether.idBlockGoldenOakLeaves).a("GoldenLeaves");
+        AetherBlocks.SkyrootSapling = new BlockAetherSapling(mod_Aether.idBlockSkyrootSapling).a("SkyrootSapling");
+        AetherBlocks.GoldenOakSapling = new BlockAetherSapling(mod_Aether.idBlockGoldenOakSapling).a("GoldenOakSapling");
+        AetherBlocks.AmbrosiumOre = new BlockAmbrosiumOre(mod_Aether.idBlockAmbrosiumOre).a("AmbrosiumOre");
+        AetherBlocks.AmbrosiumTorch = new BlockAmbrosiumTorch(mod_Aether.idBlockAmbrosiumTorch).a("AmbrosiumTorch");
+        final int OreBlockTexture = Block.IRON_BLOCK.textureId;
+        AetherBlocks.ZaniteOre = new BlockZaniteOre(mod_Aether.idBlockZaniteOre).a("ZaniteOre");
+        AetherBlocks.ZaniteBlock = new BlockZanite(mod_Aether.idBlockZanite, OreBlockTexture).a("ZaniteBlock");
+        AetherBlocks.GravititeOre = new BlockFloating(mod_Aether.idBlockGravititeOre, 17, false).a("GravititeOre");
+        AetherBlocks.EnchantedGravitite = new BlockEnchantedGravitite(mod_Aether.idBlockEnchantedGravitite, OreBlockTexture, true).a("EnchantedGravitite");
+        AetherBlocks.Enchanter = new BlockEnchanter(mod_Aether.idBlockEnchanter).a("Enchanter");
+        AetherBlocks.Incubator = new BlockIncubator(mod_Aether.idBlockIncubator).a("Incubator");
+        AetherBlocks.Trap = new BlockTrap(mod_Aether.idBlockTrap).a("Trap");
+        AetherBlocks.ChestMimic = new BlockChestMimic(mod_Aether.idBlockChestMimic).a("Mimic");
+        AetherBlocks.TreasureChest = new BlockTreasureChest(mod_Aether.idBlockTreasureChest, 28, 29).a("TreasureChest");
+        AetherBlocks.DungeonStone = new BlockDungeon(mod_Aether.idBlockDungeonStone, 0.5f, 0.0f).a("DungeonStone");
+        AetherBlocks.CarvedStairs = new BlockAetherStairs(mod_Aether.idBlockCarvedStairs, AetherBlocks.DungeonStone, 0).a("CarvedStairs").j();
+        AetherBlocks.CarvedFence = new BlockAetherFence(mod_Aether.idBlockCarvedFence, 5, Material.STONE).c(0.5f).a("CarvedFence");
+        AetherBlocks.AngelicStairs = new BlockAetherStairs(mod_Aether.idBlockAngelicStairs, AetherBlocks.DungeonStone, 1).a("AngelicStairs").j();
+        AetherBlocks.AngelicFence = new BlockAetherFence(mod_Aether.idBlockAngelicFence, 4, Material.STONE).c(0.5f).a("AngelicFence");
+        AetherBlocks.HellfireStairs = new BlockAetherStairs(mod_Aether.idBlockHellfireStairs, AetherBlocks.DungeonStone, 2).a("HellfireStairs").j();
+        AetherBlocks.HellfireFence = new BlockAetherFence(mod_Aether.idBlockHellfireFence, 18, Material.STONE).c(0.5f).a("HellfireFence");
+        AetherBlocks.LightDungeonStone = new BlockDungeon(mod_Aether.idBlockLightDungeonStone, 0.5f, 0.75f).a("LightDungeonStone");
+        AetherBlocks.LockedDungeonStone = new BlockDungeon(mod_Aether.idBlockLockedDungeonStone, -1.0f, 0.0f, 1000000.0f).a("LockedDungeonStone");
+        AetherBlocks.LockedLightDungeonStone = new BlockDungeon(mod_Aether.idBlockLockedLightDungeonStone, -1.0f, 0.5f, 1000000.0f).a("LightLockedDungeonStone");
+        AetherBlocks.Pillar = new BlockPillar(mod_Aether.idBlockPillar).a("Pillar");
+        AetherBlocks.ChristmasLeaves = new BlockChristmasLeaves(mod_Aether.idBlockChristmasLeaves).a("Christmas Leaves");
+        AetherBlocks.blockPresent = new BlockPresent(mod_Aether.idBlockPresent).a("Present");
+        AetherBlocks.BerryBush = new BlockBerryBush(mod_Aether.idBerryBush).a("Berry Bush");
+        AetherBlocks.BushStem = new BlockBushStem(mod_Aether.idBushStem).a("Bush Stem");
+        AetherBlocks.BlueLeaves = new BlockBlueLeaves(mod_Aether.idBlockBlueLeaves).a("Blue Leaves");
+        AetherBlocks.SunAltar = new BlockSunAltar(mod_Aether.idSunAltar).a("SunAltar");
+        this.RegisterBlocks(AetherBlocks.Portal, AetherBlocks.Dirt, AetherBlocks.Icestone, AetherBlocks.Aerogel, AetherBlocks.Plank, AetherBlocks.SkyrootLeaves, AetherBlocks.GoldenOakLeaves, AetherBlocks.SkyrootSapling, AetherBlocks.GoldenOakSapling, AetherBlocks.AmbrosiumOre, AetherBlocks.AmbrosiumTorch, AetherBlocks.ZaniteOre, AetherBlocks.GravititeOre, AetherBlocks.EnchantedGravitite, AetherBlocks.Enchanter, AetherBlocks.Incubator, AetherBlocks.ChestMimic, AetherBlocks.TreasureChest, AetherBlocks.ZaniteBlock, AetherBlocks.QuicksoilGlass, AetherBlocks.Freezer, AetherBlocks.WhiteFlower, AetherBlocks.PurpleFlower, AetherBlocks.LockedDungeonStone, AetherBlocks.LockedLightDungeonStone, AetherBlocks.HolystoneStairs, AetherBlocks.MossyHolystoneStairs, AetherBlocks.IcestoneStairs, AetherBlocks.PlankStairs, AetherBlocks.CarvedStairs, AetherBlocks.AngelicStairs, AetherBlocks.HellfireStairs, AetherBlocks.HolystoneFence, AetherBlocks.MossyHolystoneFence, AetherBlocks.IcestoneFence, AetherBlocks.PlankFence, AetherBlocks.CarvedFence, AetherBlocks.AngelicFence, AetherBlocks.HellfireFence);
+        ModLoader.registerBlock(AetherBlocks.Holystone, (Class)ItemBlockHolystone.class);
+        ModLoader.registerBlock(AetherBlocks.Grass, (Class)ItemBlockAetherGrass.class);
+        ModLoader.registerBlock(AetherBlocks.Aercloud, (Class)ItemBlockAercloud.class);
+        ModLoader.registerBlock(AetherBlocks.Log, (Class)ItemBlockAetherLog.class);
+        ModLoader.registerBlock(AetherBlocks.DungeonStone, (Class)ItemBlockDungeon.class);
+        ModLoader.registerBlock(AetherBlocks.LightDungeonStone, (Class)ItemBlockDungeon.class);
+        ModLoader.registerBlock(AetherBlocks.Pillar, (Class)ItemBlockDungeon.class);
+        ModLoader.registerBlock(AetherBlocks.Quicksoil, (Class)ItemBlockQuicksoil.class);
+        ModLoader.registerBlock(AetherBlocks.Trap, (Class)ItemBlockTrap.class);
+        ModLoader.registerBlock(AetherBlocks.ChristmasLeaves, (Class)ItemBlockChristmasLeaves.class);
+        ModLoader.registerBlock(AetherBlocks.BlueLeaves, (Class)ItemBlockBlueLeaves.class);
+        ModLoader.registerBlock(AetherBlocks.blockPresent);
+        ModLoader.registerBlock(AetherBlocks.BerryBush);
+        ModLoader.registerBlock(AetherBlocks.BushStem);
+        ModLoader.registerBlock(AetherBlocks.SunAltar);
+        ModLoader.registerTileEntity((Class)TileEntityIncubator.class, "Incubator");
+        ModLoader.registerTileEntity((Class)TileEntityEnchanter.class, "Enchanter");
+        ModLoader.registerTileEntity((Class)TileEntityFreezer.class, "Freezer");
+        ModLoader.registerTileEntity((Class)TileEntityTreasureChest.class, "Treasure Chest");
+        ModLoader.registerEntityID((Class)EntityMimic.class, "Mimic", ModLoader.getUniqueEntityId());
+        ModLoader.addName((Object)AetherBlocks.blockPresent, "Present");
+        ModLoader.addName((Object)AetherBlocks.BerryBush, "Berry Bush");
+        ModLoader.addName((Object)AetherBlocks.BushStem, "Bush Stem");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.ChristmasLeaves, 1, 0), "Christmas Leaves");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.ChristmasLeaves, 1, 2), "Decorative Leaves");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.BlueLeaves, 1, 0), "Crystal Leaves");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.BlueLeaves, 1, 2), "Fruit Crystal Leaves");
+        ModLoader.addName((Object)AetherBlocks.HolystoneStairs, "Holystone Stairs");
+        ModLoader.addName((Object)AetherBlocks.HolystoneFence, "Holystone Fence");
+        ModLoader.addName((Object)AetherBlocks.MossyHolystoneStairs, "Mossy Holystone Stairs");
+        ModLoader.addName((Object)AetherBlocks.MossyHolystoneFence, "Mossy Holystone Fence");
+        ModLoader.addName((Object)AetherBlocks.IcestoneStairs, "Icestone Stairs");
+        ModLoader.addName((Object)AetherBlocks.IcestoneFence, "Icestone Fence");
+        ModLoader.addName((Object)AetherBlocks.PlankStairs, "Skyroot Stairs");
+        ModLoader.addName((Object)AetherBlocks.PlankFence, "Skyroot Fenec");
+        ModLoader.addName((Object)AetherBlocks.CarvedStairs, "Carved Stairs");
+        ModLoader.addName((Object)AetherBlocks.CarvedFence, "Carved Fence");
+        ModLoader.addName((Object)AetherBlocks.AngelicStairs, "Angelic Stairs");
+        ModLoader.addName((Object)AetherBlocks.AngelicFence, "Angelic Fence");
+        ModLoader.addName((Object)AetherBlocks.HellfireStairs, "Hellfire Stairs");
+        ModLoader.addName((Object)AetherBlocks.HellfireFence, "Hellfire Fence");
+        ModLoader.addName((Object)AetherBlocks.SunAltar, "Sun Altar");
+        ModLoader.addLocalization("block.SunAltar.time", "Time");
+        ModLoader.addLocalization("block.SunAltar.notPossibleHere", "The sun spirit has no power over this realm.");
+        ModLoader.addLocalization("block.SunAltar.notAllowed", "First you must defeat a Sun Spirit! As long as he reigns, night time will never set.");
+        ModLoader.addName((Object)AetherBlocks.Portal, "Aether Portal");
+        ModLoader.addName((Object)AetherBlocks.Dirt, "Aether Dirt");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.Grass, 1, 0), "Aether Grass");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.Grass, 1, 1), "§bEnchanted Aether Grass");
+        ModLoader.addName((Object)AetherBlocks.Quicksoil, "Quicksoil");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.Holystone, 1, 0), "Holystone");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.Holystone, 1, 2), "Mossy Holystone");
+        ModLoader.addName((Object)AetherBlocks.Icestone, "Icestone");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.Aercloud, 1, 0), "Cold Aercloud");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.Aercloud, 1, 1), "Blue Aercloud");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.Aercloud, 1, 2), "Gold Aercloud");
+        ModLoader.addName((Object)AetherBlocks.Aerogel, "§aAerogel");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.Log, 1, 0), "Skyroot Log");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.Log, 1, 2), "Golden Oak Log");
+        ModLoader.addName((Object)AetherBlocks.SkyrootLeaves, "Skyroot Leaves");
+        ModLoader.addName((Object)AetherBlocks.GoldenOakLeaves, "Golden Oak Leaves");
+        ModLoader.addName((Object)AetherBlocks.Plank, "Skyroot Plank");
+        ModLoader.addName((Object)AetherBlocks.SkyrootSapling, "Skyroot Sapling");
+        ModLoader.addName((Object)AetherBlocks.GoldenOakSapling, "Golden Oak Sapling");
+        ModLoader.addName((Object)AetherBlocks.AmbrosiumOre, "Ambrosium Ore");
+        ModLoader.addName((Object)AetherBlocks.AmbrosiumTorch, "Ambrosium Torch");
+        ModLoader.addName((Object)AetherBlocks.ZaniteOre, "Zanite Ore");
+        ModLoader.addName((Object)AetherBlocks.GravititeOre, "Gravitite Ore");
+        ModLoader.addName((Object)AetherBlocks.EnchantedGravitite, "§bEnchanted Gravitite");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.Trap, 1, 0), "Carved Trap");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.Trap, 1, 1), "Angelic Trap");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.Trap, 1, 2), "Hellfire Trap");
+        ModLoader.addName((Object)AetherBlocks.ChestMimic, "Wooden Chest");
+        ModLoader.addName((Object)AetherBlocks.TreasureChest, "Treasure Chest");
+        ModLoader.addName((Object)AetherBlocks.Enchanter, "Altar");
+        ModLoader.addName((Object)AetherBlocks.Incubator, "Incubator");
+        ModLoader.addName((Object)AetherBlocks.ZaniteBlock, "Zanite Block");
+        ModLoader.addName((Object)AetherBlocks.QuicksoilGlass, "§bQuicksoil Glass");
+        ModLoader.addName((Object)AetherBlocks.Freezer, "Freezer");
+        ModLoader.addName((Object)AetherBlocks.WhiteFlower, "White Flower");
+        ModLoader.addName((Object)AetherBlocks.PurpleFlower, "Purple Flower");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.DungeonStone, 1, 0), "Carved Stone");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.DungeonStone, 1, 1), "Angelic Stone");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.DungeonStone, 1, 2), "Hellfire Stone");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.LightDungeonStone, 1, 0), "Sentry Stone");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.LightDungeonStone, 1, 1), "Light Angelic Stone");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.LightDungeonStone, 1, 2), "Light Hellfire Stone");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.Pillar, 1, 0), "Pillar");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.Pillar, 1, 1), "Pillar Top");
+        ModLoader.addName((Object)new ItemStack(AetherBlocks.Pillar, 1, 2), "Pillar Bottom");
+        Item.byId[Block.TORCH.id] = null;
+        Item.byId[((Block)Block.FIRE).id] = null;
+        Item.byId[Block.NETHERRACK.id] = null;
+        Item.byId[Block.SOUL_SAND.id] = null;
+        Item.byId[Block.LAVA.id] = null;
+        Item.byId[Block.STATIONARY_LAVA.id] = null;
+        Item.byId[((Block)Block.PORTAL).id] = null;
+        Item.byId[Block.TORCH.id] = (Item)new ItemAetherBanBlock(Block.TORCH.id - 256);
+        Item.byId[((Block)Block.FIRE).id] = (Item)new ItemAetherBanBlock(((Block)Block.FIRE).id - 256);
+        Item.byId[Block.NETHERRACK.id] = (Item)new ItemAetherBanBlock(Block.NETHERRACK.id - 256);
+        Item.byId[Block.SOUL_SAND.id] = (Item)new ItemAetherBanBlock(Block.SOUL_SAND.id - 256);
+        Item.byId[Block.LAVA.id] = (Item)new ItemAetherBanBlock(Block.LAVA.id - 256);
+        Item.byId[Block.STATIONARY_LAVA.id] = (Item)new ItemAetherBanBlock(Block.STATIONARY_LAVA.id - 256);
+        Item.byId[((Block)Block.PORTAL).id] = (Item)new ItemAetherBanBlock(((Block)Block.PORTAL).id - 256);
+    }
+    
+
+    public static boolean isGood(final int id, final int meta) {
+        return id == 0 || id == AetherBlocks.Aercloud.id;
+    }
+    
+    public static boolean isEarth(final int id, final int meta) {
+        return id == AetherBlocks.Dirt.id || id == AetherBlocks.Grass.id || (id == AetherBlocks.Holystone.id && meta <= 1);
+    }
+    
+    public void RegisterBlocks(final Block... blocks) {
+        for (final Block block : blocks) {
+            ModLoader.registerBlock(block);
+        }
+    }
+    
+    public int override(final String path) {
+        return ModLoader.addOverride("/terrain.png", "/aether/blocks/" + path);
+    }
+}
