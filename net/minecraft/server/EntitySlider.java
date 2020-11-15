@@ -470,6 +470,7 @@ public class EntitySlider extends EntityFlying implements IAetherBoss
         if (a == 0 || a == AetherBlocks.LockedDungeonStone.id || a == AetherBlocks.LockedLightDungeonStone.id) {
             return;
         }
+        /*
         ModLoader.getMinecraftInstance().effectRenderer.addBlockDestroyEffects(x, y, z, a, b);
         Block.byId[a].remove(((Entity)this).world, x, y, z);
         Block.byId[a].b(((Entity)this).world, x, y, z, b, 1);
@@ -478,6 +479,7 @@ public class EntitySlider extends EntityFlying implements IAetherBoss
         if (ModLoader.getMinecraftInstance().gameSettings.fancyGraphics) {
             this.addSquirrelButts(x, y, z);
         }
+        */
     }
     
     public void addSquirrelButts(final int x, final int y, final int z) {

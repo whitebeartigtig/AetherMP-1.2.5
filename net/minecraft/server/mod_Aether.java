@@ -479,9 +479,11 @@ public class mod_Aether extends BaseMod
                 AetherNBT.save(mod_Aether.nbtWorld);
             }
         }
+        /*
         if (!(game.currentScreen instanceof GuiMainMenu)) {
             GuiMainMenu.mmactive = false;
         }
+        */
         if (game.thePlayer != null) {
             final EntityPlayer player = (EntityPlayer)game.thePlayer;
             if (player.dimension == 3 && ((Entity)player).locY < -2.0 && !GuiMainMenu.mmactive) {
@@ -575,17 +577,21 @@ public class mod_Aether extends BaseMod
         if (mod_Aether.world == null) {
             return true;
         }
+        /*
         if (!mod_Aether.world.isStatic && game.currentScreen == null) {
             this.renderHearts();
             this.renderJumps();
         }
+        
         if (!mod_Aether.world.isStatic && game.currentScreen instanceof GuiInventory) {
             game.displayGuiScreen((GuiScreen)new GuiInventoryMoreSlots((EntityPlayer)game.thePlayer));
         }
+        
         this.repShieldUpdate(game);
         AetherPoison.tickRender(game);
         this.renderBossHP();
         final float f1 = getPlayer().prevTimeInPortal * 1.2f + (getPlayer().timeInPortal - getPlayer().prevTimeInPortal);
+        /*
         if (f1 > 0.0f) {
             GL11.glEnable(3042);
             final ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
@@ -594,6 +600,7 @@ public class mod_Aether extends BaseMod
             this.renderPortalOverlay(f1, width, height);
             GL11.glDisable(3042);
         }
+        */
         final long time = game.theWorld.getWorldTime();
         if (mod_Aether.clock != time) {
             AetherItems.tick(game);

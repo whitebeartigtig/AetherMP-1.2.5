@@ -60,7 +60,7 @@ public class AetherPoison
         }
         if (AetherPoison.poisonTime < 0) {
             ++AetherPoison.poisonTime;
-            displayCureEffect();
+            //displayCureEffect();
             return;
         }
         if (AetherPoison.poisonTime == 0) {
@@ -76,7 +76,7 @@ public class AetherPoison
             --AetherPoison.poisonTime;
             AetherPoison.clock = time;
         }
-        displayPoisonEffect(mod);
+        //displayPoisonEffect(mod);
     }
     
     public static boolean afflictPoison() {
@@ -104,7 +104,7 @@ public class AetherPoison
     public static float getCureAlpha(final float f) {
         return f * f / 10.0f + 0.4f;
     }
-    
+    /*
     public static void displayCureEffect() {
         if (AetherPoison.mc.currentScreen != null) {
             return;
@@ -118,12 +118,12 @@ public class AetherPoison
         }
         flashColor("%blur%/aether/poison/poisonvignette.png", getPoisonAlpha(mod / 50.0f));
     }
-    
+    */
 
 
     
     static {
-        AetherPoison.mc = ModLoader.getMinecraftInstance();
+        AetherPoison.mc = (MinecraftServer) ModLoader.getMinecraftInstance();
         AetherPoison.rotDFac = 0.7853981633974483;
         AetherPoison.rotTaper = 0.125;
         AetherPoison.motTaper = 0.2;

@@ -70,6 +70,7 @@ public class EntityDartPoison extends EntityDartGolden
                 this.setDead();
                 return;
             }
+            /*
             final EntityFX fx = (EntityFX)new EntityBreakingFX(super.world, super.locX, super.locY, super.locZ, Item.SLIME_BALL);
             ((Entity)fx).be = 10.0;
             fx.setParticleTextureIndex(94);
@@ -84,6 +85,7 @@ public class EntityDartPoison extends EntityDartGolden
             if (this.poisonTime % 50 == 0) {
                 this.victim.damageEntity(DamageSource.projectile((Entity)this, (Entity)super.shooter), 1);
             }
+            */
         }
     }
 }

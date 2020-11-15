@@ -88,6 +88,7 @@ public class EntityPoisonNeedle extends EntityProjectileBase
                 this.setDead();
                 return;
             }
+            /*
             final EntityFX fx = (EntityFX)new EntityBreakingFX(super.world, super.locX, super.locY, super.locZ, Item.SLIME_BALL);
             ((Entity)fx).be = 10.0;
             fx.setParticleTextureIndex(94);
@@ -99,6 +100,7 @@ public class EntityPoisonNeedle extends EntityProjectileBase
             super.locZ = ((Entity)this.victim).locZ;
             AetherPoison.distractEntity((Entity)this.victim);
             --this.poisonTime;
+            */
         }
     }
 

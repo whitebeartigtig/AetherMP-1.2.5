@@ -62,7 +62,7 @@ public class PlayerBaseAether extends PlayerBase
         }
         ((Entity)super.player).heartsLife = ((EntityLiving)super.player).maxNoDamageTicks / 2;
     }
-    
+    /*
     @Override
     public boolean attackEntityFrom(final DamageSource var1, final int var2) {
         if (GuiMainMenu.mmactive) {
@@ -74,7 +74,7 @@ public class PlayerBaseAether extends PlayerBase
         }
         return super.attackEntityFrom(var1, var2);
     }
-    
+    */
     @Override
     public void beforeOnUpdate() {
         if (this.isAboveBlock(AetherBlocks.Aercloud.id)) {
@@ -227,11 +227,13 @@ public class PlayerBaseAether extends PlayerBase
         this.prevTimeInPortal = this.timeInPortal;
         if (this.inPortal) {
             if (!((Entity)super.player).world.isStatic && ((Entity)super.player).ridingEntity != null) {
-                super.player.mountEntity((Entity)null);
+                super.player.mount((Entity)null);
             }
+            /*
             if (this.mc.currentScreen != null) {
                 this.mc.displayGuiScreen((GuiScreen)null);
             }
+            */
             if (this.timeInPortal == 0.0f) {
                 this.mc.sndManager.playSoundFX("portal.trigger", 1.0f, super.player.getRandField().nextFloat() * 0.4f + 0.8f);
             }
@@ -242,7 +244,7 @@ public class PlayerBaseAether extends PlayerBase
                     this.timeUntilPortal = 10;
                     this.mc.sndManager.playSoundFX("portal.travel", 1.0f, super.player.getRandField().nextFloat() * 0.4f + 0.8f);
                     final boolean var1 = false;
-                    this.mc.usePortal(((BlockAetherPortal)AetherBlocks.Portal).getDimNumber(), (Teleporter)this.teleporter);
+                    this.mc.usePortal(((BlockAetherPortal)AetherBlocks.Portal).getDimNumber(), (PortalTravelAgent)this.teleporter);
                 }
             }
             this.inPortal = false;
@@ -264,9 +266,11 @@ public class PlayerBaseAether extends PlayerBase
         if (this.timeUntilPortal > 0) {
             --this.timeUntilPortal;
         }
+        /*
         if (GuiMainMenu.mmactive) {
             super.player.setPosition(((Entity)super.player).lastTickPosX, ((Entity)super.player).lastTickPosY, ((Entity)super.player).lastTickPosZ);
         }
+        */
         if (((Entity)super.player).ticksExisted % 400 == 0) {
             if (this.inv.slots[0] != null && this.inv.slots[0].id == AetherItems.ZanitePendant.id) {
                 this.inv.slots[0].damage(1, (EntityLiving)super.player);
@@ -316,13 +320,13 @@ public class PlayerBaseAether extends PlayerBase
     
     @Override
     public void beforeWriteEntityToNBT(final NBTTagCompound tag) {
-        if (!((Entity)super.player).worldObj.isRemote) {
+        if (!((Entity)super.player).worldObj.isStatic) {
             this.writeCustomData(this.inv);
         }
     }
     
     private void writeCustomData(final InventoryAether inv) {
-        if (((Entity)super.player).worldObj.isRemote) {
+        if (((Entity)super.player).worldObj.isStatic) {
             return;
         }
         final NBTTagCompound customData = new NBTTagCompound();
@@ -340,13 +344,13 @@ public class PlayerBaseAether extends PlayerBase
     
     @Override
     public void beforeReadEntityFromNBT(final NBTTagCompound tag) {
-        if (!((Entity)super.player).worldObj.isRemote) {
+        if (!((Entity)super.player).worldObj.isStatic) {
             this.readCustomData();
         }
     }
     
     private void readCustomData() {
-        if (((Entity)super.player).worldObj.isRemote) {
+        if (((Entity)super.player).worldObj.isStatic) {
             return;
         }
         NBTTagCompound customData = new NBTTagCompound();
@@ -368,13 +372,15 @@ public class PlayerBaseAether extends PlayerBase
     
     @Override
     public void setDead() {
+    	/*
         if (GuiMainMenu.mmactive) {
             return;
         }
-        if (!((Entity)super.player).worldObj.isRemote) {
+        */
+        if (!((Entity)super.player).worldObj.isStatic) {
             this.writeCustomData(new InventoryAether((EntityHuman)super.player));
         }
-        super.setDead();
+        super.die();
     }
     
     @Override
@@ -391,13 +397,13 @@ public class PlayerBaseAether extends PlayerBase
     public float getCurrentPlayerStrVsBlock(final Block block) {
         int f = -1;
         if (this.inv.slots[0] != null && this.inv.slots[0].id == AetherItems.ZanitePendant.id) {
-            f *= (int)(1.0f + this.inv.slots[0].getData() / (this.inv.slots[0].getMaxDamage() * 3.0f));
+            f *= (int)(1.0f + this.inv.slots[0].getData() / (this.inv.slots[0].i() * 3.0f));
         }
         if (this.inv.slots[4] != null && this.inv.slots[4].id == AetherItems.ZaniteRing.id) {
-            f *= (int)(1.0f + this.inv.slots[4].getData() / (this.inv.slots[4].getMaxDamage() * 3.0f));
+            f *= (int)(1.0f + this.inv.slots[4].getData() / (this.inv.slots[4].i() * 3.0f));
         }
         if (this.inv.slots[5] != null && this.inv.slots[5].id == AetherItems.ZaniteRing.id) {
-            f *= (int)(1.0f + this.inv.slots[5].getData() / (this.inv.slots[5].getMaxDamage() * 3.0f));
+            f *= (int)(1.0f + this.inv.slots[5].getData() / (this.inv.slots[5].i() * 3.0f));
         }
         return (f == -1) ? super.getCurrentPlayerStrVsBlock(block) : ((float)f);
     }
