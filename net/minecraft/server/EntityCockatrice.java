@@ -51,7 +51,7 @@ public class EntityCockatrice extends EntityMonster
             final List list = ((Entity)this).world.getEntities((Entity)this, ((Entity)this).boundingBox.grow(0.5, 0.75, 0.5));
             final int i = 0;
             if (i < list.size()) {
-                final Entity entity = list.get(i);
+                final Entity entity = (Entity) list.get(i);
                 entity.mount((Entity)this);
             }
             this.gotrider = false;

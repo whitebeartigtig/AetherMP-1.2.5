@@ -233,7 +233,7 @@ public class EntityMoa extends EntityAetherAnimal
     }
     
     public boolean interact(final EntityPlayer entityplayer) {
-        if (!this.saddled && this.grown && !this.baby && entityplayer.inventory.getItemInHand() != null && entityplayer.inventory.getItemInHand().itemID == Item.SADDLE.id) {
+        if (!this.saddled && this.grown && !this.baby && entityplayer.inventory.getItemInHand() != null && entityplayer.inventory.getItemInHand().id == Item.SADDLE.id) {
             entityplayer.inventory.setItem(entityplayer.inventory.itemInHandIndex, (ItemStack)null);
             this.saddled = true;
             this.grown = false;
@@ -290,7 +290,7 @@ public class EntityMoa extends EntityAetherAnimal
     }
     
     static {
-        EntityMoa.mc = ModLoader.getMinecraftInstance();
+        EntityMoa.mc = (MinecraftServer) ModLoader.getMinecraftInstance();
     }
 
 	@Override

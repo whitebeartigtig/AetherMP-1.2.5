@@ -43,7 +43,7 @@ public class EntityAechorPlant extends EntityAetherAnimal
     
     public void onLivingUpdate() {
         if (((EntityLiving)this).health <= 0 || !this.grounded) {
-            super.e();
+            super.F_();
             if (((EntityLiving)this).health <= 0) {
                 return;
             }
@@ -70,7 +70,7 @@ public class EntityAechorPlant extends EntityAetherAnimal
         if (this.target == null) {
             final List list = ((Entity)this).world.getEntities((Entity)this, ((Entity)this).boundingBox.grow(10.0, 10.0, 10.0));
             for (int j = 0; j < list.size(); ++j) {
-                final Entity entity1 = list.get(j);
+                final Entity entity1 = (Entity) list.get(j);
                 if (entity1 instanceof EntityLiving && !(entity1 instanceof EntityAechorPlant) && !(entity1 instanceof EntityCreeper)) {
                     if (entity1 instanceof EntityPlayer) {
                         final EntityPlayer player1 = (EntityPlayer)entity1;
@@ -136,6 +136,7 @@ public class EntityAechorPlant extends EntityAetherAnimal
         d2 *= d3;
         final EntityPoisonNeedle entityarrow = new EntityPoisonNeedle(((Entity)this).world, (EntityLiving)this);
         entityarrow.locY = ((Entity)this).locY + 0.5;
+        ((Entity)this).world.makeSound((Entity)this, "aether.sound.other.dartshooter.shootDart", 2.0f, 1.0f / (((Entity)this).random.nextFloat() * 0.4f + 0.8f));
         ((Entity)this).world.addEntity((Entity)entityarrow);
         entityarrow.setArrowHeading(d1, d4, d2, 0.285f + (float)d4 * 0.05f, 1.0f);
     }

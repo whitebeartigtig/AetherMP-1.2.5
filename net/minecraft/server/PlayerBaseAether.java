@@ -11,7 +11,7 @@ public class PlayerBaseAether extends PlayerBase
     protected boolean inPortal;
     public float timeInPortal;
     public float prevTimeInPortal;
-    public Minecraft mc;
+    public MinecraftServer mc;
     public int foodTimer;
     public TeleporterAether teleporter;
     public int maxHealth;
@@ -22,14 +22,14 @@ public class PlayerBaseAether extends PlayerBase
         super(p);
         this.timeUntilPortal = 20;
         this.inPortal = false;
-        this.mc = ModLoader.getMinecraftInstance();
+        this.mc = (MinecraftServer) ModLoader.getMinecraftInstance();
         this.teleporter = new TeleporterAether();
         this.extendedReachItems = Arrays.asList(AetherItems.ShovelValkyrie, AetherItems.PickValkyrie, AetherItems.AxeValkyrie, AetherItems.Lance);
         this.maxHealth = 20;
-        this.inv = new InventoryAether((EntityPlayer)super.player);
-        if (!((Entity)super.player).worldObj.isRemote) {
-            ((EntityPlayer)super.player).inventorySlots = (Container)new ContainerAether(((EntityPlayer)super.player).inventory, this.inv, !((Entity)super.player).worldObj.isRemote);
-            ((EntityPlayer)super.player).craftingInventory = ((EntityPlayer)super.player).inventorySlots;
+        this.inv = new InventoryAether((EntityHuman)super.player);
+        if (!((Entity)super.player).world.isStatic) {
+            ((EntityHuman)super.player).inventorySlots = (Container)new ContainerAether(((EntityHuman)super.player).inventory, this.inv, !((Entity)super.player).world.isStatic);
+            ((EntityHuman)super.player).craftingInventory = ((EntityHuman)super.player).inventorySlots;
             this.readCustomData();
             mod_Aether.Player = this;
         }
@@ -60,7 +60,7 @@ public class PlayerBaseAether extends PlayerBase
         if (super.player.getHealth() > this.maxHealth) {
             super.player.setHealth(this.maxHealth);
         }
-        ((Entity)super.player).heartsLife = ((EntityLiving)super.player).heartsHalvesLife / 2;
+        ((Entity)super.player).heartsLife = ((EntityLiving)super.player).maxNoDamageTicks / 2;
     }
     
     @Override
@@ -68,7 +68,7 @@ public class PlayerBaseAether extends PlayerBase
         if (GuiMainMenu.mmactive) {
             final Entity attacker = var1.getEntity();
             if (attacker != null) {
-                attacker.attackEntityFrom(DamageSource.causeMobDamage((EntityLiving)attacker), var2);
+                attacker.damageEntity(DamageSource.mobAttack((EntityLiving)attacker), var2);
             }
             return true;
         }
@@ -77,24 +77,24 @@ public class PlayerBaseAether extends PlayerBase
     
     @Override
     public void beforeOnUpdate() {
-        if (this.isAboveBlock(AetherBlocks.Aercloud.blockID)) {
+        if (this.isAboveBlock(AetherBlocks.Aercloud.id)) {
             ((Entity)super.player).fallDistance = 0.0f;
         }
     }
     
     public boolean isAboveBlock(final int blockID) {
-        final int x = MathHelper.floor_double(((Entity)super.player).posX);
-        final int y = MathHelper.floor_double(((Entity)super.player).boundingBox.minY);
-        final int z = MathHelper.floor_double(((Entity)super.player).posZ);
-        return ((Entity)super.player).worldObj.getBlockId(MathHelper.floor_double(((Entity)super.player).boundingBox.minX), y - 1, MathHelper.floor_double(((Entity)super.player).boundingBox.minZ)) == blockID || ((Entity)super.player).worldObj.getBlockId(MathHelper.floor_double(((Entity)super.player).boundingBox.maxX), y - 1, MathHelper.floor_double(((Entity)super.player).boundingBox.minZ)) == blockID || ((Entity)super.player).worldObj.getBlockId(MathHelper.floor_double(((Entity)super.player).boundingBox.maxX), y - 1, MathHelper.floor_double(((Entity)super.player).boundingBox.maxZ)) == blockID || ((Entity)super.player).worldObj.getBlockId(MathHelper.floor_double(((Entity)super.player).boundingBox.minX), y - 1, MathHelper.floor_double(((Entity)super.player).boundingBox.maxZ)) == blockID;
+        final int x = MathHelper.floor(((Entity)super.player).locX);
+        final int y = MathHelper.floor(((Entity)super.player).boundingBox.b);
+        final int z = MathHelper.floor(((Entity)super.player).locZ);
+        return ((Entity)super.player).world.getTypeId(MathHelper.floor(((Entity)super.player).boundingBox.a), y - 1, MathHelper.floor(((Entity)super.player).boundingBox.c)) == blockID || ((Entity)super.player).world.getTypeId(MathHelper.floor(((Entity)super.player).boundingBox.d), y - 1, MathHelper.floor(((Entity)super.player).boundingBox.c)) == blockID || ((Entity)super.player).world.getTypeId(MathHelper.floor(((Entity)super.player).boundingBox.f), y - 1, MathHelper.floor(((Entity)super.player).boundingBox.f)) == blockID || ((Entity)super.player).world.getTypeId(MathHelper.floor(((Entity)super.player).boundingBox.a), y - 1, MathHelper.floor(((Entity)super.player).boundingBox.f)) == blockID;
     }
     
     private void performRepShieldEffect() {
         final ItemStack stack = this.inv.slots[2];
-        final List ents = ((Entity)super.player).worldObj.getEntitiesWithinAABBExcludingEntity((Entity)super.player, ((Entity)super.player).boundingBox.expand(4.0, 4.0, 4.0));
+        final List ents = ((Entity)super.player).world.getEntities((Entity)super.player, ((Entity)super.player).boundingBox.grow(4.0, 4.0, 4.0));
         for (final Object o : ents) {
             final Entity ent = (Entity)o;
-            if (!(ent instanceof EntityArrow) && !(ent instanceof EntityThrowable) && !(ent instanceof EntityProjectileBase) && !(ent instanceof EntityFireball) && !(ent instanceof EntityZephyrSnowball)) {
+            if (!(ent instanceof EntityArrow) && !(ent instanceof EntityProjectile) && !(ent instanceof EntityProjectileBase) && !(ent instanceof EntityFireball) && !(ent instanceof EntityZephyrSnowball)) {
                 continue;
             }
             final double distsq = super.player.getDistanceSqToEntity(ent);
@@ -113,35 +113,35 @@ public class PlayerBaseAether extends PlayerBase
             double b;
             double c;
             if (dick != null) {
-                a = ent.posX - dick.posX;
-                b = ent.boundingBox.minY - dick.boundingBox.minY;
-                c = ent.posZ - dick.posZ;
+                a = ent.locX - dick.locX;
+                b = ent.boundingBox.b - dick.boundingBox.b;
+                c = ent.locZ - dick.locZ;
             }
             else {
-                a = ((Entity)super.player).posX - ent.posX;
-                b = ((Entity)super.player).posY - ent.posY;
-                c = ((Entity)super.player).posZ - ent.posZ;
+                a = ((Entity)super.player).locX - ent.locX;
+                b = ((Entity)super.player).locY - ent.locY;
+                c = ((Entity)super.player).locZ - ent.locZ;
             }
             final double d = Math.sqrt(a * a + b * b + c * c);
             a /= -d;
             b /= -d;
             c /= -d;
-            ent.motionX = a * 0.75;
-            ent.motionY = b * 0.75 + 0.05;
-            ent.motionZ = c * 0.75;
-            this.setHeading(ent, ent.motionX, ent.motionY, ent.motionZ, 0.8f, 0.5f);
-            ((Entity)super.player).worldObj.playSoundAtEntity(ent, "note.snare", 1.0f, ((((Entity)super.player).rand.nextFloat() - ((Entity)super.player).rand.nextFloat()) * 0.4f + 0.8f) * 1.1f);
+            ent.motX = a * 0.75;
+            ent.motY = b * 0.75 + 0.05;
+            ent.motZ = c * 0.75;
+            this.setHeading(ent, ent.motX, ent.motY, ent.motZ, 0.8f, 0.5f);
+            ((Entity)super.player).world.makeSound(ent, "note.snare", 1.0f, ((((Entity)super.player).random.nextFloat() - ((Entity)super.player).random.nextFloat()) * 0.4f + 0.8f) * 1.1f);
             for (int k = 0; k < 12; ++k) {
-                double d2 = -ent.motionX * 0.15000000596046448 + (ent.rand.nextFloat() - 0.5f) * 0.05f;
-                double e1 = -ent.motionY * 0.15000000596046448 + (ent.rand.nextFloat() - 0.5f) * 0.05f;
-                double f1 = -ent.motionZ * 0.15000000596046448 + (ent.rand.nextFloat() - 0.5f) * 0.05f;
+                double d2 = -ent.motX * 0.15000000596046448 + (ent.random.nextFloat() - 0.5f) * 0.05f;
+                double e1 = -ent.motY * 0.15000000596046448 + (ent.random.nextFloat() - 0.5f) * 0.05f;
+                double f1 = -ent.motZ * 0.15000000596046448 + (ent.random.nextFloat() - 0.5f) * 0.05f;
                 d2 *= 0.625;
                 e1 *= 0.625;
                 f1 *= 0.625;
-                ((Entity)super.player).worldObj.spawnParticle("flame", ent.posX, ent.posY, ent.posZ, d2, e1, f1);
+                ((Entity)super.player).world.a("flame", ent.locX, ent.locY, ent.locZ, d2, e1, f1);
             }
-            stack.damageItem(1, (EntityLiving)super.player);
-            if (stack.getItemDamage() != AetherItems.RepShield.getMaxDamage()) {
+            stack.damage(1, (EntityLiving)super.player);
+            if (stack.getData() != AetherItems.RepShield.getMaxDurability()) {
                 continue;
             }
             this.inv.slots[2] = null;
@@ -152,8 +152,8 @@ public class PlayerBaseAether extends PlayerBase
         if (ent instanceof EntityArrow) {
             ((EntityArrow)ent).setArrowHeading(motionX, motionY, motionZ, f1, f2);
         }
-        else if (ent instanceof EntityThrowable) {
-            ((EntityThrowable)ent).setThrowableHeading(motionX, motionY, motionZ, f1, f2);
+        else if (ent instanceof EntityProjectile) {
+            ((EntityProjectile)ent).setThrowableHeading(motionX, motionY, motionZ, f1, f2);
         }
         else if (ent instanceof EntityProjectileBase) {
             ((EntityProjectileBase)ent).setArrowHeading(motionX, motionY, motionZ, f1, f2);
@@ -161,9 +161,9 @@ public class PlayerBaseAether extends PlayerBase
         else if (ent instanceof EntityFireball) {
             final EntityFireball ball = (EntityFireball)ent;
             final double len = Math.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
-            ball.accelerationX = motionX / len * 0.1;
-            ball.accelerationY = motionY / len * 0.1;
-            ball.accelerationZ = motionZ / len * 0.1;
+            ball.dirX = motionX / len * 0.1;
+            ball.dirY = motionY / len * 0.1;
+            ball.dirZ = motionZ / len * 0.1;
         }
         else if (ent instanceof EntityZephyrSnowball) {
             final EntityZephyrSnowball ball2 = (EntityZephyrSnowball)ent;
@@ -175,21 +175,21 @@ public class PlayerBaseAether extends PlayerBase
     }
     
     private Entity getShooter(final Entity ent) {
-        return (Entity)((ent instanceof EntityArrow) ? ((EntityArrow)ent).shootingEntity : ((ent instanceof EntityThrowable) ? ((EntityThrowable)ent).thrower : ((ent instanceof EntityProjectileBase) ? ((EntityProjectileBase)ent).shooter : ((ent instanceof EntityFireball) ? ((EntityFireball)ent).shootingEntity : ((ent instanceof EntityZephyrSnowball) ? ((EntityZephyrSnowball)ent).shootingEntity : null)))));
+        return (Entity)((ent instanceof EntityArrow) ? ((EntityArrow)ent).shooter : ((ent instanceof EntityProjectile) ? ((EntityProjectile)ent).shooter : ((ent instanceof EntityProjectileBase) ? ((EntityProjectileBase)ent).shooter : ((ent instanceof EntityFireball) ? ((EntityFireball)ent).shooter : ((ent instanceof EntityZephyrSnowball) ? ((EntityZephyrSnowball)ent).shootingEntity : null)))));
     }
     
     private void setShooter(final Entity ent, final EntityLiving shooter) {
         if (ent instanceof EntityArrow) {
-            ((EntityArrow)ent).shootingEntity = (Entity)shooter;
+            ((EntityArrow)ent).shooter = (Entity)shooter;
         }
-        else if (ent instanceof EntityThrowable) {
-            ((EntityThrowable)ent).thrower = shooter;
+        else if (ent instanceof EntityProjectile) {
+            ((EntityProjectile)ent).shooter = shooter;
         }
         else if (ent instanceof EntityProjectileBase) {
             ((EntityProjectileBase)ent).shooter = shooter;
         }
         else if (ent instanceof EntityFireball) {
-            ((EntityFireball)ent).shootingEntity = shooter;
+            ((EntityFireball)ent).shooter = shooter;
         }
         else if (ent instanceof EntityZephyrSnowball) {
             ((EntityZephyrSnowball)ent).shootingEntity = shooter;
@@ -198,7 +198,7 @@ public class PlayerBaseAether extends PlayerBase
     
     private boolean isInGround(final Entity ent) {
         try {
-            return (ent instanceof EntityArrow) ? ModLoader.getPrivateValue((Class)EntityArrow.class, (Object)ent, ReflectionHelper.obfuscation ? "aq" : "inGround") : ((ent instanceof EntityThrowable) ? ((EntityThrowable)ent).inGround : ((ent instanceof EntityProjectileBase) ? ((EntityProjectileBase)ent).inGround : ((ent instanceof EntityFireball) ? ModLoader.getPrivateValue((Class)EntityFireball.class, (Object)ent, ReflectionHelper.obfuscation ? "ap" : "inGround") : (ent instanceof EntityZephyrSnowball && ((EntityZephyrSnowball)ent).inGround))));
+            return (ent instanceof EntityArrow) ? ModLoader.getPrivateValue((Class)EntityArrow.class, (Object)ent, ReflectionHelper.obfuscation ? "aq" : "inGround") : ((ent instanceof EntityProjectile) ? ((EntityProjectile)ent).inGround : ((ent instanceof EntityProjectileBase) ? ((EntityProjectileBase)ent).inGround : ((ent instanceof EntityFireball) ? ModLoader.getPrivateValue((Class)EntityFireball.class, (Object)ent, ReflectionHelper.obfuscation ? "ap" : "inGround") : (ent instanceof EntityZephyrSnowball && ((EntityZephyrSnowball)ent).inGround))));
         }
         catch (Exception e) {
             return false;
@@ -207,11 +207,11 @@ public class PlayerBaseAether extends PlayerBase
     
     @Override
     public void afterOnUpdate() {
-        if (this.inv.slots[2] != null && this.inv.slots[2].itemID == AetherItems.RepShield.shiftedIndex && (((Entity)super.player).onGround || (((Entity)super.player).ridingEntity != null && ((Entity)super.player).ridingEntity.onGround)) && ((EntityLiving)super.player).moveForward == 0.0f && ((EntityLiving)super.player).moveStrafing == 0.0f) {
+        if (this.inv.slots[2] != null && this.inv.slots[2].id == AetherItems.RepShield.id && (((Entity)super.player).onGround || (((Entity)super.player).ridingEntity != null && ((Entity)super.player).ridingEntity.onGround)) && ((EntityLiving)super.player).moveForward == 0.0f && ((EntityLiving)super.player).moveStrafing == 0.0f) {
             this.performRepShieldEffect();
         }
-        final PotionEffect effect = super.player.getActivePotionEffect(Potion.regeneration);
-        if (effect != null && effect.getDuration() > 0 && Potion.potionTypes[effect.getPotionID()].isReady(effect.getDuration(), effect.getAmplifier()) && super.player.getHealth() >= 20 && super.player.getHealth() < this.maxHealth) {
+        final MobEffect effect = super.player.getActivePotionEffect(MobEffectList.regeneration);
+        if (effect != null && effect.getDuration() > 0 && MobEffectList.potionTypes[effect.getPotionID()].isReady(effect.getDuration(), effect.getAmplifier()) && super.player.getHealth() >= 20 && super.player.getHealth() < this.maxHealth) {
             super.player.heal(1);
         }
         if (super.player.getFoodStats().getFoodLevel() >= 18 && super.player.getHealth() >= 20 && super.player.getHealth() < this.maxHealth) {
@@ -226,7 +226,7 @@ public class PlayerBaseAether extends PlayerBase
         }
         this.prevTimeInPortal = this.timeInPortal;
         if (this.inPortal) {
-            if (!((Entity)super.player).worldObj.isRemote && ((Entity)super.player).ridingEntity != null) {
+            if (!((Entity)super.player).world.isStatic && ((Entity)super.player).ridingEntity != null) {
                 super.player.mountEntity((Entity)null);
             }
             if (this.mc.currentScreen != null) {
@@ -238,7 +238,7 @@ public class PlayerBaseAether extends PlayerBase
             this.timeInPortal += 0.0125f;
             if (this.timeInPortal >= 1.0f) {
                 this.timeInPortal = 1.0f;
-                if (!((Entity)super.player).worldObj.isRemote) {
+                if (!((Entity)super.player).world.isStatic) {
                     this.timeUntilPortal = 10;
                     this.mc.sndManager.playSoundFX("portal.travel", 1.0f, super.player.getRandField().nextFloat() * 0.4f + 0.8f);
                     final boolean var1 = false;
@@ -247,7 +247,7 @@ public class PlayerBaseAether extends PlayerBase
             }
             this.inPortal = false;
         }
-        else if (super.player.isPotionActive(Potion.confusion) && super.player.getActivePotionEffect(Potion.confusion).getDuration() > 60) {
+        else if (super.player.isPotionActive(MobEffectList.CONFUSION) && super.player.getActivePotionEffect(MobEffectList.CONFUSION).getDuration() > 60) {
             this.timeInPortal += 0.006666667f;
             if (this.timeInPortal > 1.0f) {
                 this.timeInPortal = 1.0f;
@@ -268,38 +268,38 @@ public class PlayerBaseAether extends PlayerBase
             super.player.setPosition(((Entity)super.player).lastTickPosX, ((Entity)super.player).lastTickPosY, ((Entity)super.player).lastTickPosZ);
         }
         if (((Entity)super.player).ticksExisted % 400 == 0) {
-            if (this.inv.slots[0] != null && this.inv.slots[0].itemID == AetherItems.ZanitePendant.shiftedIndex) {
-                this.inv.slots[0].damageItem(1, (EntityLiving)super.player);
+            if (this.inv.slots[0] != null && this.inv.slots[0].id == AetherItems.ZanitePendant.id) {
+                this.inv.slots[0].damage(1, (EntityLiving)super.player);
                 if (this.inv.slots[0].stackSize < 1) {
                     this.inv.slots[0] = null;
                 }
             }
-            if (this.inv.slots[4] != null && this.inv.slots[4].itemID == AetherItems.ZaniteRing.shiftedIndex) {
-                this.inv.slots[4].damageItem(1, (EntityLiving)super.player);
+            if (this.inv.slots[4] != null && this.inv.slots[4].id == AetherItems.ZaniteRing.id) {
+                this.inv.slots[4].damage(1, (EntityLiving)super.player);
                 if (this.inv.slots[4].stackSize < 1) {
                     this.inv.slots[4] = null;
                 }
             }
-            if (this.inv.slots[5] != null && this.inv.slots[5].itemID == AetherItems.ZaniteRing.shiftedIndex) {
-                this.inv.slots[5].damageItem(1, (EntityLiving)super.player);
+            if (this.inv.slots[5] != null && this.inv.slots[5].id == AetherItems.ZaniteRing.id) {
+                this.inv.slots[5].damage(1, (EntityLiving)super.player);
                 if (this.inv.slots[5].stackSize < 1) {
                     this.inv.slots[5] = null;
                 }
             }
-            if (this.inv.slots[0] != null && this.inv.slots[0].itemID == AetherItems.IcePendant.shiftedIndex) {
-                this.inv.slots[0].damageItem(1, (EntityLiving)super.player);
+            if (this.inv.slots[0] != null && this.inv.slots[0].id == AetherItems.IcePendant.id) {
+                this.inv.slots[0].damage(1, (EntityLiving)super.player);
                 if (this.inv.slots[0].stackSize < 1) {
                     this.inv.slots[0] = null;
                 }
             }
-            if (this.inv.slots[4] != null && this.inv.slots[4].itemID == AetherItems.IceRing.shiftedIndex) {
-                this.inv.slots[4].damageItem(1, (EntityLiving)super.player);
+            if (this.inv.slots[4] != null && this.inv.slots[4].id == AetherItems.IceRing.id) {
+                this.inv.slots[4].damage(1, (EntityLiving)super.player);
                 if (this.inv.slots[4].stackSize < 1) {
                     this.inv.slots[4] = null;
                 }
             }
-            if (this.inv.slots[5] != null && this.inv.slots[5].itemID == AetherItems.IceRing.shiftedIndex) {
-                this.inv.slots[5].damageItem(1, (EntityLiving)super.player);
+            if (this.inv.slots[5] != null && this.inv.slots[5].id == AetherItems.IceRing.id) {
+                this.inv.slots[5].damage(1, (EntityLiving)super.player);
                 if (this.inv.slots[5].stackSize < 1) {
                     this.inv.slots[5] = null;
                 }
@@ -311,7 +311,7 @@ public class PlayerBaseAether extends PlayerBase
     }
     
     public boolean invisible() {
-        return !((EntityPlayer)super.player).isSwinging && this.inv.slots[1] != null && this.inv.slots[1].itemID == AetherItems.InvisibilityCloak.shiftedIndex;
+        return !((EntityHuman)super.player).isSwinging && this.inv.slots[1] != null && this.inv.slots[1].id == AetherItems.InvisibilityCloak.id;
     }
     
     @Override
@@ -372,7 +372,7 @@ public class PlayerBaseAether extends PlayerBase
             return;
         }
         if (!((Entity)super.player).worldObj.isRemote) {
-            this.writeCustomData(new InventoryAether((EntityPlayer)super.player));
+            this.writeCustomData(new InventoryAether((EntityHuman)super.player));
         }
         super.setDead();
     }
@@ -390,20 +390,20 @@ public class PlayerBaseAether extends PlayerBase
     @Override
     public float getCurrentPlayerStrVsBlock(final Block block) {
         int f = -1;
-        if (this.inv.slots[0] != null && this.inv.slots[0].itemID == AetherItems.ZanitePendant.shiftedIndex) {
-            f *= (int)(1.0f + this.inv.slots[0].getItemDamage() / (this.inv.slots[0].getMaxDamage() * 3.0f));
+        if (this.inv.slots[0] != null && this.inv.slots[0].id == AetherItems.ZanitePendant.id) {
+            f *= (int)(1.0f + this.inv.slots[0].getData() / (this.inv.slots[0].getMaxDamage() * 3.0f));
         }
-        if (this.inv.slots[4] != null && this.inv.slots[4].itemID == AetherItems.ZaniteRing.shiftedIndex) {
-            f *= (int)(1.0f + this.inv.slots[4].getItemDamage() / (this.inv.slots[4].getMaxDamage() * 3.0f));
+        if (this.inv.slots[4] != null && this.inv.slots[4].id == AetherItems.ZaniteRing.id) {
+            f *= (int)(1.0f + this.inv.slots[4].getData() / (this.inv.slots[4].getMaxDamage() * 3.0f));
         }
-        if (this.inv.slots[5] != null && this.inv.slots[5].itemID == AetherItems.ZaniteRing.shiftedIndex) {
-            f *= (int)(1.0f + this.inv.slots[5].getItemDamage() / (this.inv.slots[5].getMaxDamage() * 3.0f));
+        if (this.inv.slots[5] != null && this.inv.slots[5].id == AetherItems.ZaniteRing.id) {
+            f *= (int)(1.0f + this.inv.slots[5].getData() / (this.inv.slots[5].getMaxDamage() * 3.0f));
         }
         return (f == -1) ? super.getCurrentPlayerStrVsBlock(block) : ((float)f);
     }
     
     private boolean wearingNeptuneArmor() {
-        return ((EntityPlayer)super.player).inventory.armorInventory[3] != null && ((EntityPlayer)super.player).inventory.armorInventory[3].itemID == AetherItems.NeptuneHelmet.shiftedIndex && ((EntityPlayer)super.player).inventory.armorInventory[2] != null && ((EntityPlayer)super.player).inventory.armorInventory[2].itemID == AetherItems.NeptuneChestplate.shiftedIndex && ((EntityPlayer)super.player).inventory.armorInventory[1] != null && ((EntityPlayer)super.player).inventory.armorInventory[1].itemID == AetherItems.NeptuneLeggings.shiftedIndex && ((EntityPlayer)super.player).inventory.armorInventory[0] != null && ((EntityPlayer)super.player).inventory.armorInventory[0].itemID == AetherItems.NeptuneBoots.shiftedIndex && this.inv.slots[6] != null && this.inv.slots[6].itemID == AetherItems.NeptuneGlove.shiftedIndex;
+        return ((EntityHuman)super.player).inventory.armorInventory[3] != null && ((EntityHuman)super.player).inventory.armorInventory[3].id == AetherItems.NeptuneHelmet.id && ((EntityHuman)super.player).inventory.armorInventory[2] != null && ((EntityHuman)super.player).inventory.armorInventory[2].id == AetherItems.NeptuneChestplate.id && ((EntityHuman)super.player).inventory.armorInventory[1] != null && ((EntityHuman)super.player).inventory.armorInventory[1].id == AetherItems.NeptuneLeggings.id && ((EntityHuman)super.player).inventory.armorInventory[0] != null && ((EntityHuman)super.player).inventory.armorInventory[0].id == AetherItems.NeptuneBoots.id && this.inv.slots[6] != null && this.inv.slots[6].id == AetherItems.NeptuneGlove.id;
     }
     
     @Override

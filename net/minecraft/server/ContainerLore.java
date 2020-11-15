@@ -34,7 +34,7 @@ public class ContainerLore extends Container
     
     public ItemStack getStackInSlot(final int i) {
         ItemStack itemstack = null;
-        final Slot slot = super.inventorySlots.get(i);
+        final Slot slot = (Slot) super.e.get(i);
         if (slot != null && slot.c()) {
             final ItemStack itemstack2 = slot.getItem();
             itemstack = itemstack2.cloneItemStack();

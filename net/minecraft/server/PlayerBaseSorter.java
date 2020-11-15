@@ -44,10 +44,10 @@ public final class PlayerBaseSorter implements Comparator
                 this.indexes.clear();
             }
             for (int var1 = 0; var1 < this.list.size(); ++var1) {
-                final String var2 = this.list.get(var1);
-                final String[] var3 = this.allBaseInferiors.get(var2);
+                final String var2 = (String) this.list.get(var1);
+                final String[] var3 = (String[]) this.allBaseInferiors.get(var2);
                 final boolean var4 = var3 != null && var3.length > 0;
-                final String[] var5 = this.allBaseSuperiors.get(var2);
+                final String[] var5 = (String[]) this.allBaseSuperiors.get(var2);
                 final boolean var6 = var5 != null && var5.length > 0;
                 if ((var4 || var6) && this.directInferiorsMap == null) {
                     this.directInferiorsMap = new Hashtable();
@@ -70,19 +70,19 @@ public final class PlayerBaseSorter implements Comparator
             if (this.directInferiorsMap != null) {
                 for (int var1 = 0; var1 < this.list.size() - 1; ++var1) {
                     for (int var7 = var1 + 1; var7 < this.list.size(); ++var7) {
-                        final String var8 = this.list.get(var1);
-                        final String var9 = this.list.get(var7);
+                        final String var8 = (String) this.list.get(var1);
+                        final String var9 = (String) this.list.get(var7);
                         Set var10 = null;
                         Set var11 = null;
                         if (this.explicitInferiors != null) {
-                            var10 = this.explicitInferiors.get(var8);
-                            var11 = this.explicitInferiors.get(var9);
+                            var10 = (Set) this.explicitInferiors.get(var8);
+                            var11 = (Set) this.explicitInferiors.get(var9);
                         }
                         Set var12 = null;
                         Set var13 = null;
                         if (this.explicitSuperiors != null) {
-                            var12 = this.explicitSuperiors.get(var8);
-                            var13 = this.explicitSuperiors.get(var9);
+                            var12 = (Set) this.explicitSuperiors.get(var8);
+                            var13 = (Set) this.explicitSuperiors.get(var9);
                         }
                         final boolean var14 = var12 != null && var12.contains(var9);
                         final boolean var15 = var10 != null && var10.contains(var9);
@@ -117,9 +117,9 @@ public final class PlayerBaseSorter implements Comparator
     }
     
     private void indexes(final String var1) {
-        final int var2 = this.groupIndexes.get(var1);
+        final int var2 = (int) this.groupIndexes.get(var1);
         for (final String var4 : this.allInferiors.get(var1)) {
-            final Integer var5 = this.groupIndexes.get(var4);
+            final Integer var5 = (Integer) this.groupIndexes.get(var4);
             if (var5 != null && var2 > var5) {
                 this.groupIndexes.put(var4, var2);
             }
@@ -127,7 +127,7 @@ public final class PlayerBaseSorter implements Comparator
     }
     
     private Set build(final String var1, final String var2) {
-        Set var3 = this.allInferiors.get(var1);
+        Set var3 = (Set) this.allInferiors.get(var1);
         if (var3 == null) {
             var3 = this.build(var1, null, (var2 != null) ? var2 : var1);
             if (var3 == null) {
@@ -139,7 +139,7 @@ public final class PlayerBaseSorter implements Comparator
     }
     
     private Set build(final String var1, Set var2, final String var3) {
-        final Set var4 = this.directInferiorsMap.get(var1);
+        final Set var4 = (Set) this.directInferiorsMap.get(var1);
         if (var4 == null) {
             return var2;
         }

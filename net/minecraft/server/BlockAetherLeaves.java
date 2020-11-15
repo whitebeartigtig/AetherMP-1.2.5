@@ -80,18 +80,18 @@ public class BlockAetherLeaves extends Block implements ITextureProvider
         toCheck.offer(new Loc(px, py, pz));
         final int bLeaves = super.id;
         while (!toCheck.isEmpty()) {
-            final Loc curLoc = toCheck.poll();
+            final Object curLoc = toCheck.poll();
             if (checked.contains(curLoc)) {
                 continue;
             }
-            if (curLoc.distSimple(startLoc) <= 4) {
-                final int block = curLoc.getBlock((IBlockAccess)world);
-                final int meta = curLoc.getMeta((IBlockAccess)world);
+            if (((Loc) curLoc).distSimple(startLoc) <= 4) {
+                final int block = ((Loc) curLoc).getBlock((IBlockAccess)world);
+                final int meta = ((Loc) curLoc).getMeta((IBlockAccess)world);
                 if (block == AetherBlocks.Log.id) {
                     return true;
                 }
                 if (block == bLeaves) {
-                    toCheck.addAll(Arrays.asList(curLoc.adjacent()));
+                    toCheck.addAll(Arrays.asList(((Loc) curLoc).adjacent()));
                 }
             }
             checked.add(curLoc);

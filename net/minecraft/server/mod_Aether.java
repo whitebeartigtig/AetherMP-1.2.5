@@ -374,7 +374,7 @@ public class mod_Aether extends BaseMod
         this.cloudPara = false;
         this.rand = new Random();
         this.zLevel = -90.0f;
-        this.mc = ModLoader.getMinecraftInstance();
+        this.mc = (MinecraftServer) ModLoader.getMinecraftInstance();
         this.teleporter = new TeleporterAether();
     }
     
@@ -403,7 +403,7 @@ public class mod_Aether extends BaseMod
         ModLoader.addLocalization("key.loreGain", "Gain Lore");
         ModLoader.setInGameHook((BaseMod)this, true, false);
     }
-    
+    /*
     public boolean renderWorldBlock(final RenderBlocks renderblocks, final IBlockAccess iblockaccess, final int i, final int j, final int k, final Block block, final int l) {
         if (l == mod_Aether.renderID) {
             renderblocks.overrideBlockTexture = 49;
@@ -453,22 +453,7 @@ public class mod_Aether extends BaseMod
             GL11.glTranslatef(0.5f, 0.5f, 0.5f);
         }
     }
-    
-    public void keyboardEvent(final KeyBinding event) {
-        final Minecraft mc = ModLoader.getMinecraftInstance();
-        if (event == this.key_loreGain) {
-            final EntityPlayer entityplayer = (EntityPlayer)ModLoader.getMinecraftInstance().thePlayer;
-            if (getCurrentDimension() == 3) {
-                entityplayer.inventory.pickup(new ItemStack(AetherItems.LoreBook, 1, 2));
-            }
-            else if (getCurrentDimension() == 0) {
-                entityplayer.inventory.pickup(new ItemStack(AetherItems.LoreBook, 1, 0));
-            }
-            else if (getCurrentDimension() == -1) {
-                entityplayer.inventory.pickup(new ItemStack(AetherItems.LoreBook, 1, 1));
-            }
-        }
-    }
+    */
     
     public boolean onTickInGame(final float ticks, final MinecraftServer game) {
         if (!(this.mc.renderGlobal instanceof RenderGlobalAether)) {
@@ -579,7 +564,7 @@ public class mod_Aether extends BaseMod
                     giveAchievement(AetherAchievements.enterAether, player);
                     player.inventory.pickup(new ItemStack(AetherItems.LoreBook, 1, 2));
                     player.inventory.pickup(new ItemStack(AetherItems.CloudParachuteGold, 1));
-                    game.theWorld.playSoundAtEntity((Entity)player, "random.pop", 0.2f, 1.0f);
+                    game.theWorld.makeSound((Entity)player, "random.pop", 0.2f, 1.0f);
                 }
             }
         }
@@ -617,7 +602,7 @@ public class mod_Aether extends BaseMod
         }
         return true;
     }
-    
+    /*
     private void renderPortalOverlay(float f, final int i, final int j) {
         if (f < 1.0f) {
             f *= f;
@@ -646,7 +631,7 @@ public class mod_Aether extends BaseMod
         GL11.glEnable(3008);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     }
-    
+    */
     public static void giveAchievement(final Achievement a) {
         giveAchievement(a, (EntityPlayer)ModLoader.getMinecraftInstance().thePlayer);
     }
@@ -669,7 +654,7 @@ public class mod_Aether extends BaseMod
         }
         this.renderShieldEffect(game);
     }
-    
+    /*
     private void renderShieldEffect(final Minecraft game) {
         final ScaledResolution scaledresolution = new ScaledResolution(game.gameSettings, game.displayWidth, game.displayHeight);
         final int i = scaledresolution.getScaledWidth();
@@ -696,7 +681,7 @@ public class mod_Aether extends BaseMod
         GL11.glDisable(3042);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     }
-    
+    */
     private String randomText() {
         final int i = this.rand.nextInt(19);
         switch (i) {
@@ -762,7 +747,7 @@ public class mod_Aether extends BaseMod
             }
         }
     }
-    
+    /*
     private void renderHearts() {
         final Minecraft mc = ModLoader.getMinecraftInstance();
         final ScaledResolution scaledresolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
@@ -881,7 +866,7 @@ public class mod_Aether extends BaseMod
         AetherPoison.AddRenderer(map);
         map.put(EntityPlayer.class, new RenderPlayerAether());
     }
-    
+    */
     public void takenFromCrafting(final EntityPlayer player, final ItemStack item, final IInventory inventory) {
         AetherItems.takenCrafting(player, item);
     }
@@ -915,7 +900,7 @@ public class mod_Aether extends BaseMod
     }
     
     public String getVersion() {
-        return "MC 1.2.5 Version 1.9";
+        return "MC 1.2.5 Version 1.9 Bukkit";
     }
     
     public static PlayerBaseAether getPlayer() {
@@ -928,7 +913,7 @@ public class mod_Aether extends BaseMod
         }
         return null;
     }
-    
+    /*
     public void onSetupAudio(final SoundManager soundManager) {
     }
     
@@ -957,7 +942,7 @@ public class mod_Aether extends BaseMod
     public String onPlaySoundAtEntity(final Entity entity, final String soundName, final float volume, final float pitch) {
         return soundName;
     }
-    
+    */
     static {
         mod_Aether.raritySwet = 8;
         mod_Aether.rarityAechorPlant = 8;

@@ -31,7 +31,7 @@ public class ContainerFreezer extends Container
     public void updateCraftingResults() {
         super.a();
         for (int i = 0; i < super.listeners.size(); ++i) {
-            final ICrafting icrafting = super.crafters.get(i);
+            final ICrafting icrafting = (ICrafting) super.listeners.get(i);
             if (this.cookTime != this.freezer.frozenTimeForItem) {
                 icrafting.setContainerData((Container)this, 0, this.freezer.frozenTimeForItem);
             }
@@ -65,7 +65,7 @@ public class ContainerFreezer extends Container
     
     public ItemStack getStackInSlot(final int i) {
         ItemStack itemstack = null;
-        final Slot slot = super.inventorySlots.get(i);
+        final Slot slot = (Slot) super.e.get(i);
         if (slot != null && slot.c()) {
             final ItemStack itemstack2 = slot.getItem();
             itemstack = itemstack2.cloneItemStack();

@@ -156,7 +156,7 @@ public class EntityFlamingArrow extends Entity
             final List list = super.world.getEntities((Entity)this, super.boundingBox.a(super.motX, super.motY, super.motZ).grow(1.0, 1.0, 1.0));
             double d = 0.0;
             for (int l = 0; l < list.size(); ++l) {
-                final Entity entity2 = list.get(l);
+                final Entity entity2 = (Entity) list.get(l);
                 if (entity2.o_()) {
                     if (entity2 != this.owner || this.ticksInAir >= 5) {
                         final float f2 = 0.3f;

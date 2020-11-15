@@ -21,8 +21,8 @@ public class ItemLoreBook extends Item
         return 8355839;
     }
     
-    public ItemStack onItemRightClick(final ItemStack itemstack, final World world, final EntityPlayer entityplayer) {
-        ModLoader.openGUI(entityplayer, (GuiScreen)new GuiLore(entityplayer.inventory, itemstack.getData()));
+    public ItemStack onItemRightClick(final ItemStack itemstack, final World world, final EntityHuman entityhuman) {
+        ModLoader.openGUI(entityhuman, (GuiScreen)new GuiLore(entityhuman.inventory, itemstack.getData()));
         return itemstack;
     }
     

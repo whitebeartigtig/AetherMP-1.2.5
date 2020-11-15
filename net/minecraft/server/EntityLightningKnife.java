@@ -150,10 +150,10 @@ public class EntityLightningKnife extends Entity
         }
         if (!super.world.isStatic) {
             Entity entity = null;
-            final List list = super.world.getEntitiesWithinAABBExcludingEntity((Entity)this, super.boundingBox.a(super.motX, super.motY, super.motZ).expand(1.0, 1.0, 1.0));
+            final List list = super.world.getEntities((Entity)this, super.boundingBox.a(super.motX, super.motY, super.motZ).grow(1.0, 1.0, 1.0));
             double d = 0.0;
             for (int l = 0; l < list.size(); ++l) {
-                final Entity entity2 = list.get(l);
+                final Entity entity2 = (Entity) list.get(l);
                 if (entity2.o_()) {
                     if (entity2 != this.thrower || this.ticksInAirSnowball >= 5) {
                         final float f4 = 0.3f;

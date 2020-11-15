@@ -144,7 +144,7 @@ public class EntityNotchWave extends Entity
             final List list = super.world.getEntities((Entity)this, super.boundingBox.a(super.motX, super.motY, super.motZ).grow(4.0, 4.0, 4.0));
             double d = 0.0;
             for (int l = 0; l < list.size(); ++l) {
-                final Entity entity2 = list.get(l);
+                final Entity entity2 = (Entity) list.get(l);
                 if (entity2.o_()) {
                     if (entity2 != this.thrower || this.ticksInAirSnowball >= 5) {
                         final float f4 = 0.3f;

@@ -149,11 +149,11 @@ public class TileEntityFreezer extends TileEntity implements IInventory
             for (int i = 0; i < TileEntityFreezer.frozen.size(); ++i) {
                 if (itemstack != null && TileEntityFreezer.frozen.get(i) != null && itemstack.id == TileEntityFreezer.frozen.get(i).frozenFrom.id && itemstack.getData() == TileEntityFreezer.frozen.get(i).frozenFrom.getData()) {
                     if (this.frozenItemStacks[2] == null) {
-                        this.currentFrozen = TileEntityFreezer.frozen.get(i);
+                        this.currentFrozen = (Frozen) TileEntityFreezer.frozen.get(i);
                         this.frozenTimeForItem = this.currentFrozen.frozenPowerNeeded;
                     }
                     else if (this.frozenItemStacks[2].id == TileEntityFreezer.frozen.get(i).frozenTo.id && TileEntityFreezer.frozen.get(i).frozenTo.getItem().getItemStackLimit() > this.frozenItemStacks[2].count) {
-                        this.currentFrozen = TileEntityFreezer.frozen.get(i);
+                        this.currentFrozen = (Frozen) TileEntityFreezer.frozen.get(i);
                         this.frozenTimeForItem = this.currentFrozen.frozenPowerNeeded;
                     }
                 }

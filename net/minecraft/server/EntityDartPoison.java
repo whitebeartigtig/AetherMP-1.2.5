@@ -35,7 +35,7 @@ public class EntityDartPoison extends EntityDartGolden
         if (!(ent instanceof EntityPlayerSP)) {
             final List list = super.world.getEntities((Entity)this, ((Entity)ent).boundingBox.grow(2.0, 2.0, 2.0));
             for (int i = 0; i < list.size(); ++i) {
-                final Entity lr2 = list.get(i);
+                final Entity lr2 = (Entity) list.get(i);
                 if (lr2 instanceof EntityDartPoison) {
                     final EntityDartPoison arr = (EntityDartPoison)lr2;
                     if (arr.victim == ent) {
@@ -51,7 +51,7 @@ public class EntityDartPoison extends EntityDartGolden
             this.poisonTime = 500;
             return false;
         }
-        if (((EntityPlayer)ModLoader.getMinecraftInstance().thePlayer).abilities.isCreativeMode) {
+        if (((EntityPlayer)ModLoader.getMinecraftInstance().thePlayer).abilities.canInstantlyBuild) {
             this.setDead();
             return false;
         }
@@ -70,8 +70,8 @@ public class EntityDartPoison extends EntityDartGolden
                 this.setDead();
                 return;
             }
-            final EntityFX fx = (EntityFX)new EntityBreakingFX(super.world, super.posX, super.posY, super.posZ, Item.slimeBall);
-            ((Entity)fx).renderDistanceWeight = 10.0;
+            final EntityFX fx = (EntityFX)new EntityBreakingFX(super.world, super.locX, super.locY, super.locZ, Item.SLIME_BALL);
+            ((Entity)fx).be = 10.0;
             fx.setParticleTextureIndex(94);
             AetherPoison.mc.effectRenderer.addEffect(fx);
             super.dead = false;

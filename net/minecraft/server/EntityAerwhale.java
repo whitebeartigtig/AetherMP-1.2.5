@@ -1,6 +1,6 @@
 package net.minecraft.server;
 
-public class EntityAerwhale extends EntityFlying implements IMob
+public class EntityAerwhale extends EntityFlying implements IMonster
 {
     private long checkTime;
     private final long checkTimeInterval = 3000L;
@@ -29,17 +29,17 @@ public class EntityAerwhale extends EntityFlying implements IMob
         this.isStuckWarning = false;
         this.courseChangeCooldown = 0;
         this.targetedEntity = null;
-        ((Entity)this).isImmuneToFire = true;
+        ((Entity)this).fireProof = true;
         this.aggroCooldown = 0;
         this.prevAttackCounter = 0;
         this.attackCounter = 0;
         ((EntityLiving)this).texture = "/aether/mobs/Mob_Aerwhale.png";
-        this.setSize(4.0f, 4.0f);
-        ((EntityLiving)this).moveSpeed = 0.5f;
+        this.b(4.0f, 4.0f);
+        ((EntityLiving)this).bb = 0.5f;
         ((EntityLiving)this).health = 20;
-        ((Entity)this).rotationYaw = 360.0f * ((Entity)this).rand.nextFloat();
-        ((Entity)this).rotationPitch = 90.0f * ((Entity)this).rand.nextFloat() - 45.0f;
-        ((Entity)this).ignoreFrustumCheck = true;
+        ((Entity)this).yaw = 360.0f * ((Entity)this).random.nextFloat();
+        ((Entity)this).pitch = 90.0f * ((Entity)this).random.nextFloat() - 45.0f;
+        ((Entity)this).cd = true;
     }
     
     public int getMaxHealth() {
@@ -47,15 +47,15 @@ public class EntityAerwhale extends EntityFlying implements IMob
     }
     
     protected void entityInit() {
-        super.entityInit();
-        ((Entity)this).dataWatcher.addObject(16, (Object)0);
+        super.b();
+        ((Entity)this).datawatcher.a(16, (Object)0);
     }
     
     public void onLivingUpdate() {
     }
     
     public void onUpdate() {
-        final byte byte0 = ((Entity)this).dataWatcher.getWatchableObjectByte(16);
+        final byte byte0 = ((Entity)this).datawatcher.getByte(16);
         ((EntityLiving)this).texture = ((byte0 != 1) ? "/aether/mobs/Mob_Aerwhale.png" : "/aether/mobs/Mob_Aerwhale.png");
         final double[] distances = { this.openSpace(0.0f, 0.0f), this.openSpace(45.0f, 0.0f), this.openSpace(0.0f, 45.0f), this.openSpace(-45.0f, 0.0f), this.openSpace(0.0f, -45.0f) };
         int longest = 0;
@@ -67,16 +67,16 @@ public class EntityAerwhale extends EntityFlying implements IMob
         switch (longest) {
             case 0: {
                 if (distances[0] != 50.0) {
-                    ((Entity)this).rotationPitch = -((Entity)this).rotationPitch;
-                    ((Entity)this).rotationYaw = -((Entity)this).rotationYaw;
+                    ((Entity)this).pitch = -((Entity)this).pitch;
+                    ((Entity)this).yaw = -((Entity)this).yaw;
                     break;
                 }
                 this.motionYaw *= 0.8999999761581421;
                 this.motionPitch *= 0.8999999761581421;
-                if (((Entity)this).posY > 100.0) {
+                if (((Entity)this).locY > 100.0) {
                     this.motionPitch -= 2.0;
                 }
-                if (((Entity)this).posY < 20.0) {
+                if (((Entity)this).locY < 20.0) {
                     this.motionPitch += 2.0;
                     break;
                 }
@@ -99,63 +99,63 @@ public class EntityAerwhale extends EntityFlying implements IMob
                 break;
             }
         }
-        this.motionYaw += 2.0f * ((Entity)this).rand.nextFloat() - 1.0f;
-        this.motionPitch += 2.0f * ((Entity)this).rand.nextFloat() - 1.0f;
-        ((Entity)this).rotationPitch += (float)(0.1 * this.motionPitch);
-        ((Entity)this).rotationYaw += (float)(0.1 * this.motionYaw);
-        if (((Entity)this).rotationPitch < -60.0f) {
-            ((Entity)this).rotationPitch = -60.0f;
+        this.motionYaw += 2.0f * ((Entity)this).random.nextFloat() - 1.0f;
+        this.motionPitch += 2.0f * ((Entity)this).random.nextFloat() - 1.0f;
+        ((Entity)this).pitch += (float)(0.1 * this.motionPitch);
+        ((Entity)this).yaw += (float)(0.1 * this.motionYaw);
+        if (((Entity)this).pitch < -60.0f) {
+            ((Entity)this).pitch = -60.0f;
         }
-        if (((Entity)this).rotationPitch > 60.0f) {
-            ((Entity)this).rotationPitch = 60.0f;
+        if (((Entity)this).pitch > 60.0f) {
+            ((Entity)this).pitch = 60.0f;
         }
-        ((Entity)this).rotationPitch *= (float)0.99;
-        ((Entity)this).motionX += 0.005 * Math.cos(((Entity)this).rotationYaw / 180.0 * 3.141592653589793) * Math.cos(((Entity)this).rotationPitch / 180.0 * 3.141592653589793);
-        ((Entity)this).motionY += 0.005 * Math.sin(((Entity)this).rotationPitch / 180.0 * 3.141592653589793);
-        ((Entity)this).motionZ += 0.005 * Math.sin(((Entity)this).rotationYaw / 180.0 * 3.141592653589793) * Math.cos(((Entity)this).rotationPitch / 180.0 * 3.141592653589793);
-        ((Entity)this).motionX *= 0.98;
-        ((Entity)this).motionY *= 0.98;
-        ((Entity)this).motionZ *= 0.98;
-        int i = MathHelper.floor_double(((Entity)this).posX);
-        final int j = MathHelper.floor_double(((Entity)this).boundingBox.minY);
-        final int k = MathHelper.floor_double(((Entity)this).posZ);
-        if (((Entity)this).motionX > 0.0 && ((Entity)this).worldObj.getBlockId(i + 1, j, k) != 0) {
-            ((Entity)this).motionX = -((Entity)this).motionX;
+        ((Entity)this).pitch *= (float)0.99;
+        ((Entity)this).motX += 0.005 * Math.cos(((Entity)this).yaw / 180.0 * 3.141592653589793) * Math.cos(((Entity)this).pitch / 180.0 * 3.141592653589793);
+        ((Entity)this).motY += 0.005 * Math.sin(((Entity)this).pitch / 180.0 * 3.141592653589793);
+        ((Entity)this).motZ += 0.005 * Math.sin(((Entity)this).yaw / 180.0 * 3.141592653589793) * Math.cos(((Entity)this).pitch / 180.0 * 3.141592653589793);
+        ((Entity)this).motX *= 0.98;
+        ((Entity)this).motY *= 0.98;
+        ((Entity)this).motZ *= 0.98;
+        int i = MathHelper.floor(((Entity)this).locX);
+        final int j = MathHelper.floor(((Entity)this).boundingBox.b);
+        final int k = MathHelper.floor(((Entity)this).locZ);
+        if (((Entity)this).motX > 0.0 && ((Entity)this).world.getTypeId(i + 1, j, k) != 0) {
+            ((Entity)this).motX = -((Entity)this).motX;
             this.motionYaw -= 10.0;
         }
-        else if (((Entity)this).motionX < 0.0 && ((Entity)this).worldObj.getBlockId(i - 1, j, k) != 0) {
-            ((Entity)this).motionX = -((Entity)this).motionX;
+        else if (((Entity)this).motX < 0.0 && ((Entity)this).world.getTypeId(i - 1, j, k) != 0) {
+            ((Entity)this).motX = -((Entity)this).motX;
             this.motionYaw += 10.0;
         }
-        if (((Entity)this).motionY > 0.0 && ((Entity)this).worldObj.getBlockId(i, j + 1, k) != 0) {
-            ((Entity)this).motionY = -((Entity)this).motionY;
+        if (((Entity)this).motY > 0.0 && ((Entity)this).world.getTypeId(i, j + 1, k) != 0) {
+            ((Entity)this).motY = -((Entity)this).motY;
             this.motionPitch -= 10.0;
         }
-        else if (((Entity)this).motionY < 0.0 && ((Entity)this).worldObj.getBlockId(i, j - 1, k) != 0) {
-            ((Entity)this).motionY = -((Entity)this).motionY;
+        else if (((Entity)this).motY < 0.0 && ((Entity)this).world.getTypeId(i, j - 1, k) != 0) {
+            ((Entity)this).motY = -((Entity)this).motY;
             this.motionPitch += 10.0;
         }
-        if (((Entity)this).motionZ > 0.0 && ((Entity)this).worldObj.getBlockId(i, j, k + 1) != 0) {
-            ((Entity)this).motionZ = -((Entity)this).motionZ;
+        if (((Entity)this).motZ > 0.0 && ((Entity)this).world.getTypeId(i, j, k + 1) != 0) {
+            ((Entity)this).motZ = -((Entity)this).motZ;
             this.motionYaw -= 10.0;
         }
-        else if (((Entity)this).motionZ < 0.0 && ((Entity)this).worldObj.getBlockId(i, j, k - 1) != 0) {
-            ((Entity)this).motionZ = -((Entity)this).motionZ;
+        else if (((Entity)this).motZ < 0.0 && ((Entity)this).world.getTypeId(i, j, k - 1) != 0) {
+            ((Entity)this).motZ = -((Entity)this).motZ;
             this.motionYaw += 10.0;
         }
         this.extinguish();
-        this.moveEntity(((Entity)this).motionX, ((Entity)this).motionY, ((Entity)this).motionZ);
+        this.move(((Entity)this).motX, ((Entity)this).motY, ((Entity)this).motZ);
         this.checkForBeingStuck();
     }
     
     public double getSpeed() {
-        return Math.sqrt(((Entity)this).motionX * ((Entity)this).motionX + ((Entity)this).motionY * ((Entity)this).motionY + ((Entity)this).motionZ * ((Entity)this).motionZ);
+        return Math.sqrt(((Entity)this).motX * ((Entity)this).motX + ((Entity)this).motY * ((Entity)this).motY + ((Entity)this).motZ * ((Entity)this).motZ);
     }
     
     private double openSpace(final float rotationYawOffset, final float rotationPitchOffset) {
-        final float yaw = ((Entity)this).rotationYaw + rotationYawOffset;
-        final float pitch = ((Entity)this).rotationYaw + rotationYawOffset;
-        final Vec3D vec3d = Vec3D.createVector(((Entity)this).posX, ((Entity)this).posY, ((Entity)this).posZ);
+        final float yaw = ((Entity)this).yaw + rotationYawOffset;
+        final float pitch = ((Entity)this).yaw + rotationYawOffset;
+        final Vec3D vec3d = Vec3D.create(((Entity)this).locX, ((Entity)this).locY, ((Entity)this).locZ);
         final float f3 = MathHelper.cos(-yaw * 0.01745329f - 3.141593f);
         final float f4 = MathHelper.sin(-yaw * 0.01745329f - 3.141593f);
         final float f5 = MathHelper.cos(-pitch * 0.01745329f);
@@ -164,15 +164,15 @@ public class EntityAerwhale extends EntityFlying implements IMob
         final float f8 = f6;
         final float f9 = f3 * f5;
         final double d3 = 50.0;
-        final Vec3D vec3d2 = vec3d.addVector(f7 * d3, f8 * d3, f9 * d3);
-        final MovingObjectPosition movingobjectposition = ((Entity)this).worldObj.rayTraceBlocks_do(vec3d, vec3d2, true);
+        final Vec3D vec3d2 = vec3d.add(f7 * d3, f8 * d3, f9 * d3);
+        final MovingObjectPosition movingobjectposition = ((Entity)this).world.rayTrace(vec3d, vec3d2, true);
         if (movingobjectposition == null) {
             return 50.0;
         }
-        if (movingobjectposition.typeOfHit == EnumMovingObjectType.TILE) {
-            final double i = movingobjectposition.blockX - ((Entity)this).posX;
-            final double j = movingobjectposition.blockY - ((Entity)this).posY;
-            final double k = movingobjectposition.blockZ - ((Entity)this).posZ;
+        if (movingobjectposition.type == EnumMovingObjectType.TILE) {
+            final double i = movingobjectposition.b - ((Entity)this).locX;
+            final double j = movingobjectposition.c - ((Entity)this).locY;
+            final double k = movingobjectposition.d - ((Entity)this).locZ;
             return Math.sqrt(i * i + j * j + k * k);
         }
         return 50.0;
@@ -184,33 +184,33 @@ public class EntityAerwhale extends EntityFlying implements IMob
     private void checkForBeingStuck() {
         final long curtime = System.currentTimeMillis();
         if (curtime > this.checkTime + 3000L) {
-            final double diffx = ((Entity)this).posX - this.checkX;
-            final double diffy = ((Entity)this).posY - this.checkY;
-            final double diffz = ((Entity)this).posZ - this.checkZ;
+            final double diffx = ((Entity)this).locX - this.checkX;
+            final double diffy = ((Entity)this).locY - this.checkY;
+            final double diffz = ((Entity)this).locZ - this.checkZ;
             final double distanceTravelled = Math.sqrt(diffx * diffx + diffy * diffy + diffz * diffz);
             if (distanceTravelled < 3.0) {
                 if (!this.isStuckWarning) {
                     this.isStuckWarning = true;
                 }
                 else {
-                    this.setDead();
+                    this.die();
                 }
             }
-            this.checkX = ((Entity)this).posX;
-            this.checkY = ((Entity)this).posY;
-            this.checkZ = ((Entity)this).posZ;
+            this.checkX = ((Entity)this).locX;
+            this.checkY = ((Entity)this).locY;
+            this.checkZ = ((Entity)this).locZ;
             this.checkTime = curtime;
         }
     }
     
     private boolean isCourseTraversable(final double d, final double d1, final double d2, final double d3) {
-        final double d4 = (this.waypointX - ((Entity)this).posX) / d3;
-        final double d5 = (this.waypointY - ((Entity)this).posY) / d3;
-        final double d6 = (this.waypointZ - ((Entity)this).posZ) / d3;
-        final AxisAlignedBB axisalignedbb = ((Entity)this).boundingBox.copy();
+        final double d4 = (this.waypointX - ((Entity)this).locX) / d3;
+        final double d5 = (this.waypointY - ((Entity)this).locY) / d3;
+        final double d6 = (this.waypointZ - ((Entity)this).locZ) / d3;
+        final AxisAlignedBB axisalignedbb = ((Entity)this).boundingBox.clone();
         for (int i = 1; i < d3; ++i) {
-            axisalignedbb.offset(d4, d5, d6);
-            if (((Entity)this).worldObj.getCollidingBoundingBoxes((Entity)this, axisalignedbb).size() > 0) {
+            axisalignedbb.a(d4, d5, d6);
+            if (((Entity)this).world.getCubes((Entity)this, axisalignedbb).size() > 0) {
                 return false;
             }
         }
@@ -242,9 +242,9 @@ public class EntityAerwhale extends EntityFlying implements IMob
     }
     
     public boolean getCanSpawnHere() {
-        final int i = MathHelper.floor_double(((Entity)this).posX);
-        final int j = MathHelper.floor_double(((Entity)this).boundingBox.minY);
-        final int k = MathHelper.floor_double(((Entity)this).posZ);
-        return ((Entity)this).rand.nextInt(65) == 0 && ((Entity)this).worldObj.checkIfAABBIsClear(((Entity)this).boundingBox) && ((Entity)this).worldObj.getCollidingBoundingBoxes((Entity)this, ((Entity)this).boundingBox).size() == 0 && !((Entity)this).worldObj.isAnyLiquid(((Entity)this).boundingBox) && ((Entity)this).worldObj.getBlockId(i, j - 1, k) != AetherBlocks.DungeonStone.blockID && ((Entity)this).worldObj.getBlockId(i, j - 1, k) != AetherBlocks.LightDungeonStone.blockID && ((Entity)this).worldObj.getBlockId(i, j - 1, k) != AetherBlocks.LockedDungeonStone.blockID && ((Entity)this).worldObj.getBlockId(i, j - 1, k) != AetherBlocks.LockedLightDungeonStone.blockID && ((Entity)this).worldObj.getBlockId(i, j - 1, k) != AetherBlocks.Holystone.blockID;
+        final int i = MathHelper.floor(((Entity)this).locX);
+        final int j = MathHelper.floor(((Entity)this).boundingBox.b);
+        final int k = MathHelper.floor(((Entity)this).locZ);
+        return ((Entity)this).random.nextInt(65) == 0 && ((Entity)this).world.containsEntity(((Entity)this).boundingBox) && ((Entity)this).world.getCubes((Entity)this, ((Entity)this).boundingBox).size() == 0 && !((Entity)this).world.containsLiquid(((Entity)this).boundingBox) && ((Entity)this).world.getTypeId(i, j - 1, k) != AetherBlocks.DungeonStone.id && ((Entity)this).world.getTypeId(i, j - 1, k) != AetherBlocks.LightDungeonStone.id && ((Entity)this).world.getTypeId(i, j - 1, k) != AetherBlocks.LockedDungeonStone.id && ((Entity)this).world.getTypeId(i, j - 1, k) != AetherBlocks.LockedLightDungeonStone.id && ((Entity)this).world.getTypeId(i, j - 1, k) != AetherBlocks.Holystone.id;
     }
 }

@@ -42,7 +42,7 @@ public class EntityAetherLightning extends EntityWeatherLighting
             final double var4 = 3.0;
             final List var5 = ((Entity)this).world.getEntities((Entity)this, AxisAlignedBB.b(((Entity)this).locX - var4, ((Entity)this).locY - var4, ((Entity)this).locZ - var4, ((Entity)this).locX + var4, ((Entity)this).locY + 6.0 + var4, ((Entity)this).locZ + var4));
             for (int var6 = 0; var6 < var5.size(); ++var6) {
-                final Entity var7 = var5.get(var6);
+                final Entity var7 = (Entity) var5.get(var6);
                 if (!(var7 instanceof EntityPlayer)) {
                     var7.a((EntityWeatherLighting)this);
                 }

@@ -504,7 +504,7 @@ public final class PlayerAPI
         if (var0 == null) {
             throw new NullPointerException("Argument 'baseClass' can not be null");
         }
-        final Constructor var3 = PlayerAPI.allBaseConstructors.get(var1);
+        final Constructor var3 = (Constructor) PlayerAPI.allBaseConstructors.get(var1);
         if (var3 != null) {
             throw new IllegalArgumentException("The class '" + var0.getName() + "' can not be registered with the id '" + var1 + "' because the class '" + var3.getDeclaringClass().getName() + "' has allready been registered with the same id");
         }
@@ -905,7 +905,7 @@ public final class PlayerAPI
             addSorting(var1, PlayerAPI.allBaseAfterSuperiors, var2.getAfterWriteEntityToNBTSuperiors());
             addSorting(var1, PlayerAPI.allBaseAfterInferiors, var2.getAfterWriteEntityToNBTInferiors());
         }
-        addMethod(var1, var0, PlayerAPI.beforeLocalConstructingHookTypes, "beforeLocalConstructing", Minecraft.class, World.class, Session.class, Integer.TYPE);
+        addMethod(var1, var0, PlayerAPI.beforeLocalConstructingHookTypes, "beforeLocalConstructing", MinecraftServer.class, World.class, Session.class, Integer.TYPE);
         addMethod(var1, var0, PlayerAPI.afterLocalConstructingHookTypes, "afterLocalConstructing", Minecraft.class, World.class, Session.class, Integer.TYPE);
         addMethod(var1, var0, PlayerAPI.beforeAddExhaustionHookTypes, "beforeAddExhaustion", Float.TYPE);
         addMethod(var1, var0, PlayerAPI.overrideAddExhaustionHookTypes, "addExhaustion", Float.TYPE);
@@ -1858,7 +1858,7 @@ public final class PlayerAPI
     }
     
     public PlayerBase getPlayerBase(final String var1) {
-        return this.allBaseObjects.get(var1);
+        return (PlayerBase) this.allBaseObjects.get(var1);
     }
     
     public Set getPlayerBaseIds() {

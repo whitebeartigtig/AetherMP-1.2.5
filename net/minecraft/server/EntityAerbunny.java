@@ -30,9 +30,9 @@ public class EntityAerbunny extends EntityAetherAnimal
         if (this.gotrider) {
             this.gotrider = false;
             if (((Entity)this).vehicle == null) {
-                final EntityPlayer entityplayer = (EntityPlayer)this.findPlayerToRunFrom();
-                if (entityplayer != null && this.i((Entity)entityplayer) < 2.0f && ((Entity)entityplayer).passenger == null) {
-                    this.mount((Entity)entityplayer);
+                final EntityPlayer entityhuman = (EntityPlayer)this.findPlayerToRunFrom();
+                if (entityhuman != null && this.i((Entity)entityhuman) < 2.0f && ((Entity)entityhuman).passenger == null) {
+                    this.mount((Entity)entityhuman);
                 }
             }
         }
@@ -46,7 +46,7 @@ public class EntityAerbunny extends EntityAetherAnimal
             int i = 0;
             final List list = ((Entity)this).world.getEntities((Entity)this, ((Entity)this).boundingBox.grow(16.0, 16.0, 16.0));
             for (int j = 0; j < list.size(); ++j) {
-                final Entity entity = list.get(j);
+                final Entity entity = (Entity) list.get(j);
                 if (entity instanceof EntityAerbunny) {
                     ++i;
                 }
@@ -58,7 +58,7 @@ public class EntityAerbunny extends EntityAetherAnimal
             final List list2 = ((Entity)this).world.getEntities((Entity)this, ((Entity)this).boundingBox.grow(1.0, 1.0, 1.0));
             boolean flag = false;
             for (int k = 0; k < list.size(); ++k) {
-                final Entity entity2 = list2.get(k);
+                final Entity entity2 = (Entity) list2.get(k);
                 if (entity2 instanceof EntityAerbunny) {
                     if (entity2 != this) {
                         final EntityAerbunny entitybunny = (EntityAerbunny)entity2;
@@ -67,6 +67,7 @@ public class EntityAerbunny extends EntityAetherAnimal
                                 final EntityAerbunny entitybunny2 = new EntityAerbunny(((Entity)this).world);
                                 entitybunny2.setPosition(((Entity)this).locX, ((Entity)this).locY, ((Entity)this).locZ);
                                 ((Entity)this).world.addEntity((Entity)entitybunny2);
+                                ((Entity)this).world.makeSound((Entity)this, "mob.chickenplop", 1.0f, (((Entity)this).random.nextFloat() - ((Entity)this).random.nextFloat()) * 0.2f + 1.0f);
                                 this.proceed();
                                 entitybunny.proceed();
                                 flag = true;
@@ -123,8 +124,8 @@ public class EntityAerbunny extends EntityAetherAnimal
             }
             else if (!((Entity)this).vehicle.onGround && !((Entity)this).vehicle.h_()) {
                 ((Entity)this).vehicle.fallDistance = 0.0f;
-                final Entity ridingEntity = ((Entity)this).vehicle;
-                ridingEntity.motY += 0.05000000074505806;
+                final Entity vehicle = ((Entity)this).vehicle;
+                vehicle.motY += 0.05000000074505806;
                 if (((Entity)this).vehicle.motY < -0.22499999403953552 && ((Entity)this).vehicle instanceof EntityLiving && ((EntityLiving)((Entity)this).vehicle).aZ) {
                     ((Entity)this).vehicle.motY = 0.125;
                     this.cloudPoop();
@@ -170,9 +171,10 @@ public class EntityAerbunny extends EntityAetherAnimal
         }
         else if (((Entity)this).onGround) {
             this.grab = false;
+            ((Entity)this).world.makeSound((Entity)this, "aether.sound.mobs.aerbunny.aerbunnyLand", 1.0f, (((Entity)this).random.nextFloat() - ((Entity)this).random.nextFloat()) * 0.2f + 1.0f);
             final List list = ((Entity)this).world.getEntities((Entity)this, ((Entity)this).boundingBox.grow(12.0, 12.0, 12.0));
             for (int m = 0; m < list.size(); ++m) {
-                final Entity entity = list.get(m);
+                final Entity entity = (Entity) list.get(m);
                 if (entity instanceof EntityMonster) {
                     final EntityMonster entitymobs = (EntityMonster)entity;
                     entitymobs.setTarget((Entity)this);
@@ -206,9 +208,9 @@ public class EntityAerbunny extends EntityAetherAnimal
     }
     
     protected Entity findPlayerToRunFrom() {
-        final EntityPlayer entityplayer = ((Entity)this).world.getClosestPlayerToEntity((Entity)this, 12.0);
-        if (entityplayer != null && this.h((Entity)entityplayer)) {
-            return (Entity)entityplayer;
+        final EntityHuman entityhuman = ((Entity)this).world.findNearbyPlayer((Entity)this, 12.0);
+        if (entityhuman != null && this.h((Entity)entityhuman)) {
+            return (Entity)entityhuman;
         }
         return null;
     }
@@ -244,29 +246,30 @@ public class EntityAerbunny extends EntityAetherAnimal
         return itemstack.id == Item.WHEAT.id;
     }
     
-    public boolean interact(final EntityPlayer entityplayer) {
-        final ItemStack itemstack = entityplayer.inventory.getItemInHand();
+    public boolean interact(final EntityPlayer entityhuman) {
+        final ItemStack itemstack = entityhuman.inventory.getItemInHand();
         if (itemstack != null && this.isWheat(itemstack)) {
-            return super.b(entityplayer);
+            return super.b(entityhuman);
         }
-        ((Entity)this).yaw = ((Entity)entityplayer).yaw;
+        ((Entity)this).yaw = ((Entity)entityhuman).yaw;
         if (((Entity)this).vehicle != null) {
             ((EntityLiving)this).V = ((Entity)this).vehicle.yaw;
             ((Entity)this).yaw = ((Entity)this).vehicle.yaw;
         }
-        this.mount((Entity)entityplayer);
+        this.mount((Entity)entityhuman);
         if (((Entity)this).vehicle == null) {
             this.grab = true;
         }
         else {
+            ((Entity)this).world.makeSound((Entity)this, "aether.sound.mobs.aerbunny.aerbunnyLift", 1.0f, (((Entity)this).random.nextFloat() - ((Entity)this).random.nextFloat()) * 0.2f + 1.0f);
         }
         ((EntityLiving)this).aZ = false;
         ((EntityLiving)this).aX = 0.0f;
         ((EntityLiving)this).aW = 0.0f;
         this.setPathEntity((PathEntity)null);
-        ((Entity)this).motX = ((Entity)entityplayer).motX * 5.0;
-        ((Entity)this).motY = ((Entity)entityplayer).motY / 2.0 + 0.5;
-        ((Entity)this).motZ = ((Entity)entityplayer).motZ * 5.0;
+        ((Entity)this).motX = ((Entity)entityhuman).motX * 5.0;
+        ((Entity)this).motY = ((Entity)entityhuman).motY / 2.0 + 0.5;
+        ((Entity)this).motZ = ((Entity)entityhuman).motZ * 5.0;
         return true;
     }
     

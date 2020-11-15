@@ -9,10 +9,10 @@ import org.bukkit.inventory.InventoryHolder;
 public class InventoryAether implements IInventory
 {
     public ItemStack[] slots;
-    public EntityPlayer player;
+    public EntityHuman player;
     
-    public InventoryAether(final EntityPlayer entityplayer) {
-        this.player = entityplayer;
+    public InventoryAether(final EntityHuman entityhuman) {
+        this.player = entityhuman;
         this.slots = new ItemStack[8];
     }
     
@@ -52,7 +52,7 @@ public class InventoryAether implements IInventory
             if (this.slots[j] != null) {
                 final NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                 nbttagcompound1.setByte("Slot", (byte)j);
-                this.slots[j].writeTobNBT(nbttagcompound1);
+                this.slots[j].save(nbttagcompound1);
                 nbttaglist.add((NBTBase)nbttagcompound1);
             }
         }
@@ -104,7 +104,7 @@ public class InventoryAether implements IInventory
     public void onInventoryChanged() {
     }
     
-    public boolean canInteractWith(final EntityPlayer entityplayer) {
+    public boolean canInteractWith(final EntityPlayer entityhuman) {
         return true;
     }
     

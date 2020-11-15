@@ -95,7 +95,7 @@ public class EntityZephyrSnowball extends Entity
         final List list = super.world.getEntities((Entity)this, super.boundingBox.a(super.motX, super.motY, super.motZ).grow(1.0, 1.0, 1.0));
         double d = 0.0;
         for (int j = 0; j < list.size(); ++j) {
-            final Entity entity2 = list.get(j);
+            final Entity entity2 = (Entity) list.get(j);
             if (entity2.o_()) {
                 if (entity2 != this.shootingEntity || this.ticksInAir >= 25) {
                     final float f2 = 0.3f;

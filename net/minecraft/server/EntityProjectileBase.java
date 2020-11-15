@@ -160,7 +160,7 @@ public abstract class EntityProjectileBase extends Entity
         final List list = super.world.getEntities((Entity)this, super.boundingBox.a(super.motX, super.motY, super.motZ).grow(1.0, 1.0, 1.0));
         double d = 0.0;
         for (int j = 0; j < list.size(); ++j) {
-            final Entity entity2 = list.get(j);
+            final Entity entity2 = (Entity) list.get(j);
             if (this.canBeShot(entity2)) {
                 final float f2 = this.hitBox;
                 final AxisAlignedBB axisalignedbb = entity2.boundingBox.grow((double)f2, (double)f2, (double)f2);

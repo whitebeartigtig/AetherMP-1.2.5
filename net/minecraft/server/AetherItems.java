@@ -371,12 +371,12 @@ public class AetherItems
                 ((Entity)player).fireProof = false;
             }
             if (player.aT()) {
-                final int playerBlock = game.theWorld.getBlockId(MathHelper.floor(((Entity)player).locX), MathHelper.floor(((Entity)player).locY), MathHelper.floor(((Entity)player).locZ));
+                final int playerBlock = game.theWorld.getTypeId(MathHelper.floor(((Entity)player).locX), MathHelper.floor(((Entity)player).locY), MathHelper.floor(((Entity)player).locZ));
                 if (player.inventory.armor[0] != null && player.inventory.armor[0].id == AetherItems.PhoenixBoots.id) {
                     player.inventory.armor[0].damage(1, (EntityLiving)player);
                     if (playerBlock == Block.STATIONARY_WATER.id) {
                         player.inventory.armor[0].damage(4, (EntityLiving)player);
-                        game.theWorld.setBlockWithNotify(MathHelper.floor(((Entity)player).locX), MathHelper.floor(((Entity)player).locY), MathHelper.floor(((Entity)player).locZ), 0);
+                        game.theWorld.setTypeId(MathHelper.floor(((Entity)player).locX), MathHelper.floor(((Entity)player).locY), MathHelper.floor(((Entity)player).locZ), 0);
                     }
                     if (player.inventory.armor[0] == null || player.inventory.armor[0].count < 1) {
                         player.inventory.armor[0] = new ItemStack(AetherItems.ObsidianBoots, 1, 0);
@@ -386,7 +386,7 @@ public class AetherItems
                     player.inventory.armor[1].damage(1, (EntityLiving)player);
                     if (playerBlock == Block.STATIONARY_WATER.id) {
                         player.inventory.armor[1].damage(4, (EntityLiving)player);
-                        game.theWorld.setBlockWithNotify(MathHelper.floor(((Entity)player).locX), MathHelper.floor(((Entity)player).locY), MathHelper.floor(((Entity)player).locZ), 0);
+                        game.theWorld.setTypeId(MathHelper.floor(((Entity)player).locX), MathHelper.floor(((Entity)player).locY), MathHelper.floor(((Entity)player).locZ), 0);
                     }
                     if (player.inventory.armor[1] == null || player.inventory.armor[1].count < 1) {
                         player.inventory.armor[1] = new ItemStack(AetherItems.ObsidianLegs, 1, 0);
@@ -396,7 +396,7 @@ public class AetherItems
                     player.inventory.armor[2].damage(1, (EntityLiving)player);
                     if (playerBlock == Block.STATIONARY_WATER.id) {
                         player.inventory.armor[2].damage(4, (EntityLiving)player);
-                        game.theWorld.setBlockWithNotify(MathHelper.floor(((Entity)player).locX), MathHelper.floor(((Entity)player).locY), MathHelper.floor(((Entity)player).locZ), 0);
+                        game.theWorld.setTypeId(MathHelper.floor(((Entity)player).locX), MathHelper.floor(((Entity)player).locY), MathHelper.floor(((Entity)player).locZ), 0);
                     }
                     if (player.inventory.armor[2] == null || player.inventory.armor[2].count < 1) {
                         player.inventory.armor[2] = new ItemStack(AetherItems.ObsidianBody, 1, 0);
@@ -406,7 +406,7 @@ public class AetherItems
                     player.inventory.armor[3].damage(1, (EntityLiving)player);
                     if (playerBlock == Block.STATIONARY_WATER.id) {
                         player.inventory.armor[3].damage(4, (EntityLiving)player);
-                        game.theWorld.setBlockWithNotify(MathHelper.floor(((Entity)player).locX), MathHelper.floor(((Entity)player).locY), MathHelper.floor(((Entity)player).locZ), 0);
+                        game.theWorld.setTypeId(MathHelper.floor(((Entity)player).locX), MathHelper.floor(((Entity)player).locY), MathHelper.floor(((Entity)player).locZ), 0);
                     }
                     if (player.inventory.armor[3] == null || player.inventory.armor[3].count < 1) {
                         player.inventory.armor[3] = new ItemStack(AetherItems.ObsidianHelm, 1, 0);
@@ -416,7 +416,7 @@ public class AetherItems
                     inv.slots[6].damage(1, (EntityLiving)player);
                     if (playerBlock == Block.STATIONARY_WATER.id) {
                         inv.slots[6].damage(4, (EntityLiving)player);
-                        game.theWorld.setBlockWithNotify(MathHelper.floor(((Entity)player).locX), MathHelper.floor(((Entity)player).locY), MathHelper.floor(((Entity)player).locZ), 0);
+                        game.theWorld.setTypeId(MathHelper.floor(((Entity)player).locX), MathHelper.floor(((Entity)player).locY), MathHelper.floor(((Entity)player).locZ), 0);
                     }
                     if (inv.slots[6] == null || inv.slots[6].count < 1) {
                         inv.slots[6] = new ItemStack(AetherItems.ObsidianGlove, 1, 0);
@@ -441,22 +441,22 @@ public class AetherItems
                 final int j = MathHelper.floor(((Entity)player).boundingBox.b);
                 final int k = MathHelper.floor(((Entity)player).locZ);
                 final double yoff = ((Entity)player).locY - j;
-                final Material mat0 = game.theWorld.getBlockMaterial(i, j, k);
-                final Material mat2 = game.theWorld.getBlockMaterial(i, j - 1, k);
+                final Material mat0 = game.theWorld.getMaterial(i, j, k);
+                final Material mat2 = game.theWorld.getMaterial(i, j - 1, k);
                 for (int l = i - 1; l <= i + 1; ++l) {
                     for (int i2 = j - 1; i2 <= j + 1; ++i2) {
                         for (int j2 = k - 1; j2 <= k + 1; ++j2) {
-                            if (game.theWorld.getBlockId(l, i2, j2) == 8) {
-                                game.theWorld.setBlockWithNotify(l, i2, j2, 79);
+                            if (game.theWorld.getTypeId(l, i2, j2) == 8) {
+                                game.theWorld.setTypeId(l, i2, j2, 79);
                             }
-                            else if (game.theWorld.getBlockId(l, i2, j2) == 9) {
-                                game.theWorld.setBlockWithNotify(l, i2, j2, 79);
+                            else if (game.theWorld.getTypeId(l, i2, j2) == 9) {
+                                game.theWorld.setTypeId(l, i2, j2, 79);
                             }
-                            else if (game.theWorld.getBlockId(l, i2, j2) == 10) {
-                                game.theWorld.setBlockWithNotify(l, i2, j2, 49);
+                            else if (game.theWorld.getTypeId(l, i2, j2) == 10) {
+                                game.theWorld.setTypeId(l, i2, j2, 49);
                             }
-                            else if (game.theWorld.getBlockId(l, i2, j2) == 11) {
-                                game.theWorld.setBlockWithNotify(l, i2, j2, 49);
+                            else if (game.theWorld.getTypeId(l, i2, j2) == 11) {
+                                game.theWorld.setTypeId(l, i2, j2, 49);
                             }
                         }
                     }

@@ -77,7 +77,7 @@ public class EntitySwet extends EntityAetherAnimal
             final List list = ((Entity)this).world.getEntities((Entity)this, ((Entity)this).boundingBox.grow(0.5, 0.75, 0.5));
             final int j = 0;
             if (j < list.size()) {
-                final Entity entity = list.get(j);
+                final Entity entity = (Entity) list.get(j);
                 this.capturePrey(entity);
             }
             this.gotrider = false;
@@ -458,7 +458,7 @@ public class EntitySwet extends EntityAetherAnimal
     protected Entity getPrey() {
         final List list = ((Entity)this).world.getEntities((Entity)this, ((Entity)this).boundingBox.grow(6.0, 6.0, 6.0));
         for (int i = 0; i < list.size(); ++i) {
-            final Entity entity = list.get(i);
+            final Entity entity = (Entity) list.get(i);
             if (entity instanceof EntityLiving && !(entity instanceof EntitySwet)) {
                 if (this.friendly) {
                     if (entity instanceof EntityPlayer) {
@@ -475,7 +475,7 @@ public class EntitySwet extends EntityAetherAnimal
     }
     
     protected void dropFewItems(final boolean var1, final int var2) {
-        final ItemStack stack = new ItemStack((this.textureNum == 1) ? AetherItems.SwetBall.shiftedIndex : AetherItems.SwetBall.shiftedIndex, 6, (int)((this.textureNum == 1) ? 1 : 0));
+        final ItemStack stack = new ItemStack((this.textureNum == 1) ? AetherItems.SwetBall.id : AetherItems.SwetBall.id, 6, (int)((this.textureNum == 1) ? 1 : 0));
         if (mod_Aether.equippedSkyrootSword()) {
             final ItemStack itemStack = stack;
             itemStack.count *= 2;

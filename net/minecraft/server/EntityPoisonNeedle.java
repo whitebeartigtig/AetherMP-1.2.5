@@ -38,7 +38,7 @@ public class EntityPoisonNeedle extends EntityProjectileBase
         if (!(ent instanceof EntityPlayerSP)) {
             final List list = super.world.getEntities((Entity)this, ((Entity)ent).boundingBox.grow(2.0, 2.0, 2.0));
             for (int i = 0; i < list.size(); ++i) {
-                final Entity lr2 = list.get(i);
+                final Entity lr2 = (Entity) list.get(i);
                 if (lr2 instanceof EntityPoisonNeedle) {
                     final EntityPoisonNeedle arr = (EntityPoisonNeedle)lr2;
                     if (arr.victim == ent) {

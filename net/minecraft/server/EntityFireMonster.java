@@ -175,7 +175,7 @@ public class EntityFireMonster extends EntityFlying implements IAetherBoss
     public void burnEntities() {
         final List list = ((Entity)this).world.getEntities((Entity)this, ((Entity)this).boundingBox.grow(0.0, 4.0, 0.0));
         for (int j = 0; j < list.size(); ++j) {
-            final Entity entity1 = list.get(j);
+            final Entity entity1 = (Entity) list.get(j);
             if (entity1 instanceof EntityLiving && !entity1.fireProof) {
                 entity1.damageEntity(DamageSource.mobAttack((EntityLiving)this), 10);
                 entity1.setOnFire(300);

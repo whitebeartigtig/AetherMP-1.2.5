@@ -31,20 +31,20 @@ public class MoaColour
         int i = MoaColour.random.nextInt(MoaColour.totalChance);
         for (int j = 0; j < MoaColour.colours.size(); ++j) {
             if (i < MoaColour.colours.get(j).chance) {
-                return MoaColour.colours.get(j);
+                return (MoaColour) MoaColour.colours.get(j);
             }
             i -= MoaColour.colours.get(j).chance;
         }
-        return MoaColour.colours.get(0);
+        return (MoaColour) MoaColour.colours.get(0);
     }
     
     public static MoaColour getColour(final int ID) {
         for (int i = 0; i < MoaColour.colours.size(); ++i) {
             if (MoaColour.colours.get(i).ID == ID) {
-                return MoaColour.colours.get(i);
+                return (MoaColour) MoaColour.colours.get(i);
             }
         }
-        return MoaColour.colours.get(0);
+        return (MoaColour) MoaColour.colours.get(0);
     }
     
     static {
