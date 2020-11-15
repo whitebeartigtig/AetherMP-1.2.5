@@ -482,14 +482,6 @@ public class AetherItems
         }
     }
     
-    public static void AddRenderer(final Map map) {
-        map.put(EntityCloudParachute.class, new RenderCloudParachute());
-        map.put(EntityFlamingArrow.class, new RenderFlamingArrow());
-        map.put(EntityNotchWave.class, new RenderNotchWave());
-        map.put(EntityAetherLightning.class, new RenderLightningBolt());
-        map.put(EntityLightningKnife.class, new RenderLightningKnife());
-        map.put(EntityMiniCloud.class, new RenderLiving((ModelBase)new ModelMiniCloud(0.0f, 20.0f), 0.35f));
-    }
     
     public static void takenCrafting(final EntityPlayer player, final ItemStack stack) {
         if (stack.id == AetherBlocks.Enchanter.id) {

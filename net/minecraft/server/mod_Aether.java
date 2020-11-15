@@ -4,7 +4,7 @@ import net.minecraft.server.*;
 import forge.*;
 import java.util.*;
 
-public class mod_Aether extends BaseMod implements ISoundHandler
+public class mod_Aether extends BaseMod
 {
     private static World world;
     private static World nbtWorld;
@@ -369,7 +369,6 @@ public class mod_Aether extends BaseMod implements ISoundHandler
     public static BiomeBase biomeAether;
     public static WorldProvider dim;
     public TeleporterAether teleporter;
-    private KeyBinding key_loreGain;
     
     public mod_Aether() {
         this.cloudPara = false;
@@ -377,7 +376,6 @@ public class mod_Aether extends BaseMod implements ISoundHandler
         this.zLevel = -90.0f;
         this.mc = ModLoader.getMinecraftInstance();
         this.teleporter = new TeleporterAether();
-        this.key_loreGain = new KeyBinding("key.loreGain", 48);
     }
     
     public void load() {
@@ -393,11 +391,6 @@ public class mod_Aether extends BaseMod implements ISoundHandler
         final Item setContainerItem2 = new ItemAetherBucket(Item.LAVA_BUCKET.id - 256, Block.LAVA.id).a(12, 4).a("LAVA_BUCKET").a(Item.BUCKET);
         itemsList2[shiftedIndex2] = setContainerItem2;
         Item.LAVA_BUCKET = setContainerItem2;
-        MinecraftForgeClient.registerSoundHandler((ISoundHandler)this);
-        mod_Aether.renderID = ModLoader.getUniqueBlockModelID((BaseMod)this, true);
-        MinecraftForgeClient.preloadTexture("/aetherBlocks.png");
-        MinecraftForgeClient.preloadTexture("/aetherItems.png");
-        MinecraftForgeClient.preloadTexture("/terrain.png");
         PlayerAPI.register("Aether", PlayerBaseAether.class);
         DimensionManager.registerDimension(3, mod_Aether.dim, true);
         final BiomeBase aether = new BiomeGenAether();
@@ -407,7 +400,6 @@ public class mod_Aether extends BaseMod implements ISoundHandler
         new AetherPoison();
         new AetherAchievements();
         new AetherRecipes();
-        ModLoader.registerKey((BaseMod)this, this.key_loreGain, false);
         ModLoader.addLocalization("key.loreGain", "Gain Lore");
         ModLoader.setInGameHook((BaseMod)this, true, false);
     }
@@ -478,7 +470,7 @@ public class mod_Aether extends BaseMod implements ISoundHandler
         }
     }
     
-    public boolean onTickInGame(final float ticks, final Minecraft game) {
+    public boolean onTickInGame(final float ticks, final MinecraftServer game) {
         if (!(this.mc.renderGlobal instanceof RenderGlobalAether)) {
             (this.mc.renderGlobal = new RenderGlobalAether(this.mc, this.mc.renderEngine)).changeWorld(this.mc.theWorld);
         }
@@ -520,7 +512,7 @@ public class mod_Aether extends BaseMod implements ISoundHandler
                 if (EntityCloudParachute.getCloudBelongingToEntity((EntityLiving)player) != null) {
                     this.cloudPara = true;
                 }
-                game.usePortal(((BlockAetherPortal)AetherBlocks.Portal).getDimNumber(), (Teleporter)this.teleporter);
+                game.usePortal(((BlockAetherPortal)AetherBlocks.Portal).getDimNumber(), (PortalTravelAgent)this.teleporter);
                 game.thePlayer.setPositionRotation(((Entity)player).locX, 127.0, ((Entity)player).locZ, ((Entity)player).yaw, 0.0f);
                 if (entityClass != null && !game.theWorld.isStatic) {
                     Entity riding = null;
