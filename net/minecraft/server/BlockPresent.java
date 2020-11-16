@@ -48,8 +48,8 @@ public class BlockPresent extends AetherBlock
     }
     
     public void harvestBlock(final World world, final EntityPlayer entityplayer, final int i, final int j, final int k, final int l) {
-        final MinecraftServer game = ModLoader.getMinecraftInstance();
-        final EntityPlayer player = (EntityPlayer)game.thePlayer;
+        final MinecraftServer game = (MinecraftServer) ModLoader.getMinecraftInstance();
+        //final EntityPlayer player = (EntityPlayer)game.thePlayer;
         final Random random = new Random();
         final int randStart = 6;
         final int randEnd = 9;

@@ -403,6 +403,7 @@ public class mod_Aether extends BaseMod
         ModLoader.addLocalization("key.loreGain", "Gain Lore");
         ModLoader.setInGameHook((BaseMod)this, true, false);
     }
+    
     /*
     public boolean renderWorldBlock(final RenderBlocks renderblocks, final IBlockAccess iblockaccess, final int i, final int j, final int k, final Block block, final int l) {
         if (l == mod_Aether.renderID) {
@@ -453,7 +454,7 @@ public class mod_Aether extends BaseMod
             GL11.glTranslatef(0.5f, 0.5f, 0.5f);
         }
     }
-    */
+    
     
     public boolean onTickInGame(final float ticks, final MinecraftServer game) {
         if (!(this.mc.renderGlobal instanceof RenderGlobalAether)) {
@@ -483,7 +484,7 @@ public class mod_Aether extends BaseMod
         if (!(game.currentScreen instanceof GuiMainMenu)) {
             GuiMainMenu.mmactive = false;
         }
-        */
+        
         if (game.thePlayer != null) {
             final EntityPlayer player = (EntityPlayer)game.thePlayer;
             if (player.dimension == 3 && ((Entity)player).locY < -2.0 && !GuiMainMenu.mmactive) {
@@ -577,7 +578,7 @@ public class mod_Aether extends BaseMod
         if (mod_Aether.world == null) {
             return true;
         }
-        /*
+        
         if (!mod_Aether.world.isStatic && game.currentScreen == null) {
             this.renderHearts();
             this.renderJumps();
@@ -591,7 +592,7 @@ public class mod_Aether extends BaseMod
         AetherPoison.tickRender(game);
         this.renderBossHP();
         final float f1 = getPlayer().prevTimeInPortal * 1.2f + (getPlayer().timeInPortal - getPlayer().prevTimeInPortal);
-        /*
+        
         if (f1 > 0.0f) {
             GL11.glEnable(3042);
             final ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
@@ -600,7 +601,7 @@ public class mod_Aether extends BaseMod
             this.renderPortalOverlay(f1, width, height);
             GL11.glDisable(3042);
         }
-        */
+        
         final long time = game.theWorld.getWorldTime();
         if (mod_Aether.clock != time) {
             AetherItems.tick(game);
@@ -609,7 +610,7 @@ public class mod_Aether extends BaseMod
         }
         return true;
     }
-    /*
+    
     private void renderPortalOverlay(float f, final int i, final int j) {
         if (f < 1.0f) {
             f *= f;
@@ -638,7 +639,7 @@ public class mod_Aether extends BaseMod
         GL11.glEnable(3008);
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     }
-    */
+    
     public static void giveAchievement(final Achievement a) {
         giveAchievement(a, (EntityPlayer)ModLoader.getMinecraftInstance().thePlayer);
     }
@@ -651,7 +652,7 @@ public class mod_Aether extends BaseMod
         p.a((Statistic)a);
     }
     
-    public void repShieldUpdate(final Minecraft game) {
+    public void repShieldUpdate(final MinecraftServer game) {
         final PlayerBaseAether pbase = getPlayer();
         if (pbase.inv.slots[6] == null || pbase.inv.slots[6].id != AetherItems.RepShield.id) {
             return;
@@ -873,7 +874,7 @@ public class mod_Aether extends BaseMod
         AetherPoison.AddRenderer(map);
         map.put(EntityPlayer.class, new RenderPlayerAether());
     }
-    */
+    
     public void takenFromCrafting(final EntityPlayer player, final ItemStack item, final IInventory inventory) {
         AetherItems.takenCrafting(player, item);
     }
@@ -905,18 +906,18 @@ public class mod_Aether extends BaseMod
         }
         return player.dimension;
     }
-    
+    */
     public String getVersion() {
         return "MC 1.2.5 Version 1.9 Bukkit";
     }
-    
+    /*
     public static PlayerBaseAether getPlayer() {
         return getPlayer((EntityPlayer)ModLoader.getMinecraftInstance().thePlayer);
     }
-    
+    */
     public static PlayerBaseAether getPlayer(final EntityPlayer player) {
-        if (player instanceof EntityPlayerSP) {
-            return (PlayerBaseAether)((EntityPlayerSP)player).playerAPI.getPlayerBase("Aether");
+        if (player instanceof EntityHuman) {
+            return (PlayerBaseAether)((EntityHuman)player).playerAPI.getPlayerBase("Aether");
         }
         return null;
     }

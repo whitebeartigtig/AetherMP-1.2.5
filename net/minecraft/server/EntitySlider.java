@@ -354,7 +354,7 @@ public class EntitySlider extends EntityFlying implements IAetherBoss
     
     private void chatItUp(final String s) {
         if (this.chatTime <= 0) {
-            ModLoader.getMinecraftInstance().ingameGUI.addChatMessage(s);
+            //ModLoader.getMinecraftInstance().ingameGUI.addChatMessage(s);
             this.chatTime = 60;
         }
     }
@@ -390,7 +390,7 @@ public class EntitySlider extends EntityFlying implements IAetherBoss
                 ((Entity)this).world.setRawTypeIdAndData(this.dungeonX + 8, this.dungeonY + 1, this.dungeonZ + 7, Block.TRAP_DOOR.id, 2);
                 ((Entity)this).world.setRawTypeIdAndData(this.dungeonX + 7, this.dungeonY + 1, this.dungeonZ + 8, Block.TRAP_DOOR.id, 3);
                 ((Entity)this).world.setRawTypeIdAndData(this.dungeonX + 8, this.dungeonY + 1, this.dungeonZ + 8, Block.TRAP_DOOR.id, 2);
-                mod_Aether.giveAchievement(AetherAchievements.defeatBronze);
+                //mod_Aether.giveAchievement(AetherAchievements.defeatBronze);
                 mod_Aether.currentBoss = null;
             }
             else if (!this.awake) {

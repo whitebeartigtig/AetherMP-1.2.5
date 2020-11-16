@@ -4,7 +4,7 @@ import net.minecraft.server.*;
 
 public abstract class PlayerBase
 {
-    protected final EntityPlayerSP player;
+    protected final EntityHuman player;
     private final PlayerAPI playerAPI;
     
     public PlayerBase(final PlayerAPI var1) {
@@ -1068,9 +1068,9 @@ public abstract class PlayerBase
     public void beforeSleepInBedAt(final int var1, final int var2, final int var3) {
     }
     
-    public EnumStatus sleepInBedAt(final int var1, final int var2, final int var3) {
+    public EnumBedResult sleepInBedAt(final int var1, final int var2, final int var3) {
         final PlayerBase var4 = this.playerAPI.GetOverwrittenSleepInBedAt(this);
-        EnumStatus var5;
+        EnumBedResult var5;
         if (var4 == null) {
             var5 = this.player.localSleepInBedAt(var1, var2, var3);
         }

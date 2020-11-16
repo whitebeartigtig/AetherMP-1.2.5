@@ -43,7 +43,7 @@ public class EntityCockatrice extends EntityMonster
     
     public void onUpdate() {
         super.F_();
-        ((Entity)this).cd = (((Entity)this).passenger == EntityCockatrice.mc.thePlayer);
+        //((Entity)this).cd = (((Entity)this).passenger == EntityCockatrice.mc.thePlayer);
         if (!((Entity)this).world.isStatic && this.gotrider) {
             if (((Entity)this).passenger != null) {
                 return;
@@ -230,11 +230,11 @@ public class EntityCockatrice extends EntityMonster
     public boolean interact(final EntityPlayer entityplayer) {
         return true;
     }
-    
+    /*
     protected void dropFewItems(final boolean var1, final int var2) {
         this.b(Item.FEATHER.id, 3 * (mod_Aether.equippedSkyrootSword() ? 2 : 1));
     }
-    
+    */
     static {
         EntityCockatrice.mc = (MinecraftServer) ModLoader.getMinecraftInstance();
     }

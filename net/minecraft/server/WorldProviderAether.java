@@ -21,7 +21,7 @@ public class WorldProviderAether extends WorldProvider
         super.c = new WorldChunkManagerAether(1.0);
         super.dimension = 2;
     }
-    
+    /*
     public float calculateCelestialAngle(final long l, final float f) {
         final boolean hasKilledGold = ModLoader.getMinecraftInstance().statFileWriter.hasAchievementUnlocked(AetherAchievements.defeatGold);
         if (hasKilledGold) {
@@ -29,7 +29,7 @@ public class WorldProviderAether extends WorldProvider
         }
         return 0.0f;
     }
-    
+    */
     public float[] calcSunriseSunsetColors(final float f, final float f1) {
         final float f2 = 0.4f;
         final float f3 = MathHelper.cos(f * 3.141593f * 2.0f) - 0.0f;

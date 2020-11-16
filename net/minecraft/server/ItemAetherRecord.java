@@ -21,7 +21,7 @@ public class ItemAetherRecord extends ItemRecord implements ITextureProvider
         }
         ((BlockJukeBox)Block.JUKEBOX).f(world, i, j, k, ((Item)this).id);
         world.a((EntityPlayer)null, 1005, i, j, k, ((Item)this).id);
-        ModLoader.getMinecraftInstance().ingameGUI.setRecordPlayingMessage("Noisestorm - " + super.a);
+        //ModLoader.getMinecraftInstance().ingameGUI.setRecordPlayingMessage("Noisestorm - " + super.a);
         --itemstack.count;
         return true;
     }

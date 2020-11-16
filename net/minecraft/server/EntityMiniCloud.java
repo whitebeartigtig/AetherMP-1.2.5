@@ -83,9 +83,11 @@ public class EntityMiniCloud extends EntityFlying
     
     protected Entity findPlayer() {
         final EntityHuman entityplayer = ((Entity)this).world.findNearbyPlayer((Entity)this, 16.0);
+        /*
         if (entityplayer != null && this.h((Entity)entityplayer) && !GuiMainMenu.mmactive) {
             return (Entity)entityplayer;
         }
+        */
         return null;
     }
     

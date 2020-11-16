@@ -355,7 +355,7 @@ public class AetherItems
         }
         if (mod_Aether.TMIhidden) {}
     }
-    
+    /*
     public static void tick(final MinecraftServer game) {
         if (!game.theWorld.isStatic) {
             final EntityPlayer player = (EntityPlayer)game.thePlayer;
@@ -436,6 +436,9 @@ public class AetherItems
             if ((inv.slots[3] != null && inv.slots[3].id == AetherItems.IronBubble.id) || (inv.slots[7] != null && inv.slots[7].id == AetherItems.IronBubble.id)) {
                 player.setAirTicks(20);
             }
+        }
+    }
+            /*
             if ((inv.slots[0] != null && inv.slots[0].id == AetherItems.IcePendant.id) || (inv.slots[4] != null && inv.slots[4].id == AetherItems.IceRing.id) || (inv.slots[5] != null && inv.slots[5].id == AetherItems.IceRing.id)) {
                 final int i = MathHelper.floor(((Entity)player).locX);
                 final int j = MathHelper.floor(((Entity)player).boundingBox.b);
@@ -461,6 +464,7 @@ public class AetherItems
                         }
                     }
                 }
+                
             }
             if ((inv.slots[3] != null && inv.slots[3].id == AetherItems.GoldenFeather.id) || (inv.slots[7] != null && inv.slots[7].id == AetherItems.GoldenFeather.id)) {
                 if (!((Entity)player).onGround && ((Entity)player).motY < 0.0 && !((Entity)player).bV) {
@@ -491,7 +495,7 @@ public class AetherItems
             mod_Aether.giveAchievement(AetherAchievements.gravTools, player);
         }
     }
-    
+    */
     public int override(final String path) {
         return ModLoader.addOverride("/gui/items.png", "/aether/items/" + path);
     }

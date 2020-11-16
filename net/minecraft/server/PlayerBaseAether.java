@@ -28,8 +28,8 @@ public class PlayerBaseAether extends PlayerBase
         this.maxHealth = 20;
         this.inv = new InventoryAether((EntityHuman)super.player);
         if (!((Entity)super.player).world.isStatic) {
-            ((EntityHuman)super.player).inventorySlots = (Container)new ContainerAether(((EntityHuman)super.player).inventory, this.inv, !((Entity)super.player).world.isStatic);
-            ((EntityHuman)super.player).craftingInventory = ((EntityHuman)super.player).inventorySlots;
+            ((EntityHuman)super.player).defaultContainer = (Container)new ContainerAether(((EntityHuman)super.player).inventory, this.inv, !((Entity)super.player).world.isStatic);
+            ((EntityHuman)super.player).activeContainer = ((EntityHuman)super.player).defaultContainer;
             this.readCustomData();
             mod_Aether.Player = this;
         }
@@ -60,7 +60,7 @@ public class PlayerBaseAether extends PlayerBase
         if (super.player.getHealth() > this.maxHealth) {
             super.player.setHealth(this.maxHealth);
         }
-        ((Entity)super.player).heartsLife = ((EntityLiving)super.player).maxNoDamageTicks / 2;
+        ((Entity)super.player).noDamageTicks = ((EntityLiving)super.player).maxNoDamageTicks / 2;
     }
     /*
     @Override
@@ -97,7 +97,7 @@ public class PlayerBaseAether extends PlayerBase
             if (!(ent instanceof EntityArrow) && !(ent instanceof EntityProjectile) && !(ent instanceof EntityProjectileBase) && !(ent instanceof EntityFireball) && !(ent instanceof EntityZephyrSnowball)) {
                 continue;
             }
-            final double distsq = super.player.getDistanceSqToEntity(ent);
+            final double distsq = super.player.j(ent);
             if (distsq > 9.0) {
                 continue;
             }
@@ -150,13 +150,13 @@ public class PlayerBaseAether extends PlayerBase
     
     private void setHeading(final Entity ent, final double motionX, final double motionY, final double motionZ, final float f1, final float f2) {
         if (ent instanceof EntityArrow) {
-            ((EntityArrow)ent).setArrowHeading(motionX, motionY, motionZ, f1, f2);
+            ((EntityArrow)ent).shoot(motionX, motionY, motionZ, f1, f2);
         }
         else if (ent instanceof EntityProjectile) {
-            ((EntityProjectile)ent).setThrowableHeading(motionX, motionY, motionZ, f1, f2);
+            ((EntityProjectile)ent).a(motionX, motionY, motionZ, f1, f2);
         }
         else if (ent instanceof EntityProjectileBase) {
-            ((EntityProjectileBase)ent).setArrowHeading(motionX, motionY, motionZ, f1, f2);
+            ((EntityProjectileBase)ent).shoot(motionX, motionY, motionZ, f1, f2);
         }
         else if (ent instanceof EntityFireball) {
             final EntityFireball ball = (EntityFireball)ent;
@@ -207,14 +207,14 @@ public class PlayerBaseAether extends PlayerBase
     
     @Override
     public void afterOnUpdate() {
-        if (this.inv.slots[2] != null && this.inv.slots[2].id == AetherItems.RepShield.id && (((Entity)super.player).onGround || (((Entity)super.player).ridingEntity != null && ((Entity)super.player).ridingEntity.onGround)) && ((EntityLiving)super.player).moveForward == 0.0f && ((EntityLiving)super.player).moveStrafing == 0.0f) {
+        if (this.inv.slots[2] != null && this.inv.slots[2].id == AetherItems.RepShield.id && (((Entity)super.player).onGround || (((Entity)super.player).vehicle != null && ((Entity)super.player).vehicle.onGround)) && ((EntityLiving)super.player).aX == 0.0f && ((EntityLiving)super.player).aW == 0.0f) {
             this.performRepShieldEffect();
         }
-        final MobEffect effect = super.player.getActivePotionEffect(MobEffectList.regeneration);
-        if (effect != null && effect.getDuration() > 0 && MobEffectList.potionTypes[effect.getPotionID()].isReady(effect.getDuration(), effect.getAmplifier()) && super.player.getHealth() >= 20 && super.player.getHealth() < this.maxHealth) {
+        final MobEffect effect = super.player.getEffect(MobEffectList.REGENERATION);
+        if (effect != null && effect.getDuration() > 0 && MobEffectList.byId[effect.getEffectId()].b(effect.getDuration(), effect.getAmplifier()) && super.player.getHealth() >= 20 && super.player.getHealth() < this.maxHealth) {
             super.player.heal(1);
         }
-        if (super.player.getFoodStats().getFoodLevel() >= 18 && super.player.getHealth() >= 20 && super.player.getHealth() < this.maxHealth) {
+        if (super.player.getFoodData().a() >= 18 && super.player.getHealth() >= 20 && super.player.getHealth() < this.maxHealth) {
             ++this.foodTimer;
             if (this.foodTimer >= 80) {
                 this.foodTimer = 0;
@@ -226,7 +226,7 @@ public class PlayerBaseAether extends PlayerBase
         }
         this.prevTimeInPortal = this.timeInPortal;
         if (this.inPortal) {
-            if (!((Entity)super.player).world.isStatic && ((Entity)super.player).ridingEntity != null) {
+            if (!((Entity)super.player).world.isStatic && ((Entity)super.player).vehicle != null) {
                 super.player.mount((Entity)null);
             }
             /*
@@ -235,21 +235,21 @@ public class PlayerBaseAether extends PlayerBase
             }
             */
             if (this.timeInPortal == 0.0f) {
-                this.mc.sndManager.playSoundFX("portal.trigger", 1.0f, super.player.getRandField().nextFloat() * 0.4f + 0.8f);
+                //this.mc.sndManager.playSoundFX("portal.trigger", 1.0f, super.player.getRandField().nextFloat() * 0.4f + 0.8f);
             }
             this.timeInPortal += 0.0125f;
             if (this.timeInPortal >= 1.0f) {
                 this.timeInPortal = 1.0f;
                 if (!((Entity)super.player).world.isStatic) {
                     this.timeUntilPortal = 10;
-                    this.mc.sndManager.playSoundFX("portal.travel", 1.0f, super.player.getRandField().nextFloat() * 0.4f + 0.8f);
+                    //this.mc.sndManager.playSoundFX("portal.travel", 1.0f, super.player.getRandField().nextFloat() * 0.4f + 0.8f);
                     final boolean var1 = false;
                     this.mc.usePortal(((BlockAetherPortal)AetherBlocks.Portal).getDimNumber(), (PortalTravelAgent)this.teleporter);
                 }
             }
             this.inPortal = false;
         }
-        else if (super.player.isPotionActive(MobEffectList.CONFUSION) && super.player.getActivePotionEffect(MobEffectList.CONFUSION).getDuration() > 60) {
+        else if (super.player.hasEffect(MobEffectList.CONFUSION) && super.player.getEffect(MobEffectList.CONFUSION).getDuration() > 60) {
             this.timeInPortal += 0.006666667f;
             if (this.timeInPortal > 1.0f) {
                 this.timeInPortal = 1.0f;
@@ -271,70 +271,70 @@ public class PlayerBaseAether extends PlayerBase
             super.player.setPosition(((Entity)super.player).lastTickPosX, ((Entity)super.player).lastTickPosY, ((Entity)super.player).lastTickPosZ);
         }
         */
-        if (((Entity)super.player).ticksExisted % 400 == 0) {
+        if (((Entity)super.player).ticksLived % 400 == 0) {
             if (this.inv.slots[0] != null && this.inv.slots[0].id == AetherItems.ZanitePendant.id) {
                 this.inv.slots[0].damage(1, (EntityLiving)super.player);
-                if (this.inv.slots[0].stackSize < 1) {
+                if (this.inv.slots[0].count < 1) {
                     this.inv.slots[0] = null;
                 }
             }
             if (this.inv.slots[4] != null && this.inv.slots[4].id == AetherItems.ZaniteRing.id) {
                 this.inv.slots[4].damage(1, (EntityLiving)super.player);
-                if (this.inv.slots[4].stackSize < 1) {
+                if (this.inv.slots[4].count < 1) {
                     this.inv.slots[4] = null;
                 }
             }
             if (this.inv.slots[5] != null && this.inv.slots[5].id == AetherItems.ZaniteRing.id) {
                 this.inv.slots[5].damage(1, (EntityLiving)super.player);
-                if (this.inv.slots[5].stackSize < 1) {
+                if (this.inv.slots[5].count < 1) {
                     this.inv.slots[5] = null;
                 }
             }
             if (this.inv.slots[0] != null && this.inv.slots[0].id == AetherItems.IcePendant.id) {
                 this.inv.slots[0].damage(1, (EntityLiving)super.player);
-                if (this.inv.slots[0].stackSize < 1) {
+                if (this.inv.slots[0].count < 1) {
                     this.inv.slots[0] = null;
                 }
             }
             if (this.inv.slots[4] != null && this.inv.slots[4].id == AetherItems.IceRing.id) {
                 this.inv.slots[4].damage(1, (EntityLiving)super.player);
-                if (this.inv.slots[4].stackSize < 1) {
+                if (this.inv.slots[4].count < 1) {
                     this.inv.slots[4] = null;
                 }
             }
             if (this.inv.slots[5] != null && this.inv.slots[5].id == AetherItems.IceRing.id) {
                 this.inv.slots[5].damage(1, (EntityLiving)super.player);
-                if (this.inv.slots[5].stackSize < 1) {
+                if (this.inv.slots[5].count < 1) {
                     this.inv.slots[5] = null;
                 }
             }
         }
-        if (((Entity)super.player).worldObj.difficultySetting == 0 && super.player.getHealth() >= 20 && super.player.getHealth() < this.maxHealth && ((Entity)super.player).ticksExisted % 20 == 0) {
+        if (((Entity)super.player).world.f == 0 && super.player.getHealth() >= 20 && super.player.getHealth() < this.maxHealth && ((Entity)super.player).ticksLived % 20 == 0) {
             super.player.heal(1);
         }
     }
     
     public boolean invisible() {
-        return !((EntityHuman)super.player).isSwinging && this.inv.slots[1] != null && this.inv.slots[1].id == AetherItems.InvisibilityCloak.id;
+        return !((EntityHuman)super.player).t && this.inv.slots[1] != null && this.inv.slots[1].id == AetherItems.InvisibilityCloak.id;
     }
     
     @Override
     public void beforeWriteEntityToNBT(final NBTTagCompound tag) {
-        if (!((Entity)super.player).worldObj.isStatic) {
+        if (!((Entity)super.player).world.isStatic) {
             this.writeCustomData(this.inv);
         }
     }
     
     private void writeCustomData(final InventoryAether inv) {
-        if (((Entity)super.player).worldObj.isStatic) {
+        if (((Entity)super.player).world.isStatic) {
             return;
         }
         final NBTTagCompound customData = new NBTTagCompound();
         customData.setByte("MaxHealth", (byte)this.maxHealth);
-        customData.setTag("Inventory", (NBTBase)inv.writeToNBT(new NBTTagList()));
+        customData.set("Inventory", (NBTBase)inv.writeToNBT(new NBTTagList()));
         try {
-            final File file = new File(((SaveHandler)((Entity)super.player).worldObj.getSaveHandler()).getSaveDirectory(), "aether.dat");
-            CompressedStreamTools.writeCompressed(customData, (OutputStream)new FileOutputStream(file));
+            final File file = new File(((WorldNBTStorage)((Entity)super.player).world.getDataManager()).getDirectory(), "aether.dat");
+            NBTCompressedStreamTools.a(customData, (OutputStream)new FileOutputStream(file));
         }
         catch (IOException ioexception) {
             ioexception.printStackTrace();
@@ -344,24 +344,24 @@ public class PlayerBaseAether extends PlayerBase
     
     @Override
     public void beforeReadEntityFromNBT(final NBTTagCompound tag) {
-        if (!((Entity)super.player).worldObj.isStatic) {
+        if (!((Entity)super.player).world.isStatic) {
             this.readCustomData();
         }
     }
     
     private void readCustomData() {
-        if (((Entity)super.player).worldObj.isStatic) {
+        if (((Entity)super.player).world.isStatic) {
             return;
         }
         NBTTagCompound customData = new NBTTagCompound();
         try {
-            final File file = new File(((SaveHandler)((Entity)super.player).worldObj.getSaveHandler()).getSaveDirectory(), "aether.dat");
-            customData = CompressedStreamTools.readCompressed((InputStream)new FileInputStream(file));
+            final File file = new File(((WorldNBTStorage)((Entity)super.player).world.getDataManager()).getDirectory(), "aether.dat");
+            customData = NBTCompressedStreamTools.a((InputStream)new FileInputStream(file));
             this.maxHealth = customData.getByte("MaxHealth");
             if (this.maxHealth < 20) {
                 this.maxHealth = 20;
             }
-            final NBTTagList nbttaglist = customData.getTagList("Inventory");
+            final NBTTagList nbttaglist = customData.getList("Inventory");
             this.inv.readFromNBT(nbttaglist);
         }
         catch (IOException ioexception) {
@@ -377,22 +377,22 @@ public class PlayerBaseAether extends PlayerBase
             return;
         }
         */
-        if (!((Entity)super.player).worldObj.isStatic) {
+        if (!((Entity)super.player).world.isStatic) {
             this.writeCustomData(new InventoryAether((EntityHuman)super.player));
         }
-        super.die();
+        super.setDead();
     }
     
     @Override
     public double getDistanceSq(final double var1, final double var3, final double var5) {
         return this.invisible() ? 1.0E40 : super.getDistanceSq(var1, var3, var5);
     }
-    
+    /*
     @Override
     public boolean isInWater() {
         return super.isInWater() && (!this.wearingNeptuneArmor() || super.player.getIsJumpingField());
     }
-    
+    */
     @Override
     public float getCurrentPlayerStrVsBlock(final Block block) {
         int f = -1;
@@ -409,15 +409,17 @@ public class PlayerBaseAether extends PlayerBase
     }
     
     private boolean wearingNeptuneArmor() {
-        return ((EntityHuman)super.player).inventory.armorInventory[3] != null && ((EntityHuman)super.player).inventory.armorInventory[3].id == AetherItems.NeptuneHelmet.id && ((EntityHuman)super.player).inventory.armorInventory[2] != null && ((EntityHuman)super.player).inventory.armorInventory[2].id == AetherItems.NeptuneChestplate.id && ((EntityHuman)super.player).inventory.armorInventory[1] != null && ((EntityHuman)super.player).inventory.armorInventory[1].id == AetherItems.NeptuneLeggings.id && ((EntityHuman)super.player).inventory.armorInventory[0] != null && ((EntityHuman)super.player).inventory.armorInventory[0].id == AetherItems.NeptuneBoots.id && this.inv.slots[6] != null && this.inv.slots[6].id == AetherItems.NeptuneGlove.id;
+        return ((EntityHuman)super.player).inventory.armor[3] != null && ((EntityHuman)super.player).inventory.armor[3].id == AetherItems.NeptuneHelmet.id && ((EntityHuman)super.player).inventory.armor[2] != null && ((EntityHuman)super.player).inventory.armor[2].id == AetherItems.NeptuneChestplate.id && ((EntityHuman)super.player).inventory.armor[1] != null && ((EntityHuman)super.player).inventory.armor[1].id == AetherItems.NeptuneLeggings.id && ((EntityHuman)super.player).inventory.armor[0] != null && ((EntityHuman)super.player).inventory.armor[0].id == AetherItems.NeptuneBoots.id && this.inv.slots[6] != null && this.inv.slots[6].id == AetherItems.NeptuneGlove.id;
     }
     
     @Override
     public MovingObjectPosition rayTrace(double var1, final float var3) {
-        final ItemStack stack = super.player.getCurrentEquippedItem();
+        final ItemStack stack = super.player.U();
         if (stack != null && stack.getItem() != null && this.extendedReachItems.contains(stack.getItem())) {
             var1 = 10.0;
         }
-        return super.player.superRayTrace(var1, var3);
+        //return super.player.superRayTrace(var1, var3);
+		return null;
+        
     }
 }

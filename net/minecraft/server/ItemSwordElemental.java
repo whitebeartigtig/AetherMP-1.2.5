@@ -39,9 +39,11 @@ public class ItemSwordElemental extends ItemSword implements ITextureProvider
         if (this.element == EnumElement.Fire) {
             entityliving.setOnFire(30);
         }
+        /*
         else if (this.element == EnumElement.Lightning) {
             ModLoader.getMinecraftInstance().theWorld.spawnEntityInWorld((Entity)new EntityAetherLightning(ModLoader.getMinecraftInstance().theWorld, (int)((Entity)entityliving).locX, (int)((Entity)entityliving).locY, (int)((Entity)entityliving).locZ));
         }
+        */
         itemstack.damage(1, entityliving1);
         return true;
     }

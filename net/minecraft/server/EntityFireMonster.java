@@ -257,7 +257,7 @@ public class EntityFireMonster extends EntityFlying implements IAetherBoss
     }
     
     public void chatLine(final String s) {
-        ModLoader.getMinecraftInstance().ingameGUI.addChatMessage(s);
+        //ModLoader.getMinecraftInstance().ingameGUI.addChatMessage(s);
     }
     
     public boolean chatWithMe() {
@@ -404,6 +404,7 @@ public class EntityFireMonster extends EntityFlying implements IAetherBoss
                 }
             }
         }
+        /*
         mod_Aether.giveAchievement(AetherAchievements.defeatGold);
         for (int x2 = this.orgX - 20; x2 < this.orgX + 20; ++x2) {
             for (int y2 = this.orgY - 3; y2 < this.orgY + 6; ++y2) {
@@ -417,8 +418,9 @@ public class EntityFireMonster extends EntityFlying implements IAetherBoss
                     }
                 }
             }
+            */
         }
-    }
+    
     
     public int getBossHP() {
         return ((EntityLiving)this).health;

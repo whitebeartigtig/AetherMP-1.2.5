@@ -180,7 +180,7 @@ public class EntityFlyingCow extends EntityAetherAnimal
         }
         return super.b(entityplayer);
     }
-    
+    /*
     protected void dropFewItems(final boolean var1, final int var2) {
         if (mod_Aether.equippedSkyrootSword()) {
             this.a(Item.LEATHER.id, 4);
@@ -189,7 +189,7 @@ public class EntityFlyingCow extends EntityAetherAnimal
             this.a(Item.LEATHER.id, 2);
         }
     }
-    
+    */
     public int getMaxHealth() {
         return 20;
     }

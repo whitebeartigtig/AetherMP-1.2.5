@@ -283,7 +283,7 @@ public class EntityAerbunny extends EntityAetherAnimal
     protected String getLivingSound() {
         return null;
     }
-    
+    /*
     protected void dropFewItems(final boolean var1, final int var2) {
         if (mod_Aether.equippedSkyrootSword()) {
             this.b(Item.STRING.id, 2);
@@ -292,7 +292,7 @@ public class EntityAerbunny extends EntityAetherAnimal
             this.b(Item.STRING.id, 1);
         }
     }
-    
+    */
     public void proceed() {
         this.mate = 0;
         this.age = ((Entity)this).random.nextInt(64);

@@ -19,7 +19,7 @@ public class BlockAercloud extends Block implements ITextureProvider
             entity.motY = 2.0;
             entity.fallDistance = -20.0f;
             if (entity instanceof EntityPlayer) {
-                mod_Aether.giveAchievement(AetherAchievements.blueCloud, (EntityPlayer)entity);
+                //mod_Aether.giveAchievement(AetherAchievements.blueCloud, (EntityPlayer)entity);
             }
         }
         else if (entity.motY < 0.0) {

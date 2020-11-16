@@ -473,7 +473,7 @@ public class EntitySwet extends EntityAetherAnimal
         }
         return null;
     }
-    
+    /*
     protected void dropFewItems(final boolean var1, final int var2) {
         final ItemStack stack = new ItemStack((this.textureNum == 1) ? AetherItems.SwetBall.id : AetherItems.SwetBall.id, 6, (int)((this.textureNum == 1) ? 1 : 0));
         if (mod_Aether.equippedSkyrootSword()) {
@@ -482,7 +482,7 @@ public class EntitySwet extends EntityAetherAnimal
         }
         this.a(stack, 0.0f);
     }
-    
+    */
     public int getMaxHealth() {
         return 20;
     }

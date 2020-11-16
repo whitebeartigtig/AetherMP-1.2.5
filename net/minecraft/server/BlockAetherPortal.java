@@ -14,13 +14,13 @@ public class BlockAetherPortal extends BlockPortal implements ITextureProvider
     public String getTextureFile() {
         return "/aetherBlocks.png";
     }
-    
+    /*
     public void onEntityCollidedWithBlock(final World world, final int i, final int j, final int k, final Entity entity) {
         if (entity instanceof EntityPlayer) {
             mod_Aether.getPlayer().setInPortal();
         }
     }
-    
+    */
     public boolean tryToCreatePortal(final World world, int i, final int j, int k) {
         int l = 0;
         int i2 = 0;

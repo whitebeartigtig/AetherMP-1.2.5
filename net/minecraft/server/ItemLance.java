@@ -42,13 +42,15 @@ public class ItemLance extends AetherItem
         if (!flag) {
             return;
         }
-        if (!(entity instanceof EntityPlayer)) {
+        if (!(entity instanceof EntityHuman)) {
             return;
         }
-        final EntityPlayer player = (EntityPlayer)entity;
+        final EntityHuman player = (EntityHuman)entity;
+        /*
         if (!Mouse.isButtonDown(0)) {
             return;
         }
+        */
         if (player.u != -1) {
             return;
         }

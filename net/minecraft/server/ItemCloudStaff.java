@@ -24,7 +24,7 @@ public class ItemCloudStaff extends AetherItem
     private boolean cloudsExist(final World world, final EntityPlayer entityplayer) {
         final List list = world.getEntities((Entity)entityplayer, ((Entity)entityplayer).boundingBox.grow(128.0, 128.0, 128.0));
         for (int j = 0; j < list.size(); ++j) {
-            final Entity entity1 = list.get(j);
+            final Entity entity1 = (Entity) list.get(j);
             if (entity1 instanceof EntityMiniCloud) {
                 return true;
             }

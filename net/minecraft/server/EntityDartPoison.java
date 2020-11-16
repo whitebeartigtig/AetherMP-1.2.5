@@ -32,7 +32,7 @@ public class EntityDartPoison extends EntityDartGolden
             return super.onHitTarget(entity);
         }
         final EntityLiving ent = (EntityLiving)entity;
-        if (!(ent instanceof EntityPlayerSP)) {
+        if (!(ent instanceof EntityHuman)) {
             final List list = super.world.getEntities((Entity)this, ((Entity)ent).boundingBox.grow(2.0, 2.0, 2.0));
             for (int i = 0; i < list.size(); ++i) {
                 final Entity lr2 = (Entity) list.get(i);
@@ -51,12 +51,16 @@ public class EntityDartPoison extends EntityDartGolden
             this.poisonTime = 500;
             return false;
         }
+        /*
         if (((EntityPlayer)ModLoader.getMinecraftInstance().thePlayer).abilities.canInstantlyBuild) {
             this.setDead();
             return false;
         }
+        
         AetherPoison.afflictPoison();
         return super.onHitTarget(entity);
+        */
+		return inGround;
     }
     
     @Override

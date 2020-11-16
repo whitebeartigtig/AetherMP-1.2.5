@@ -317,4 +317,9 @@ public abstract class EntityProjectileBase extends Entity
     public float getShadowSize() {
         return 0.0f;
     }
+
+	public void shoot(double motionX, double motionY, double motionZ, float f1, float f2) {
+		// TODO Auto-generated method stub
+		
+	}
 }

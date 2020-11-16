@@ -42,7 +42,7 @@ public class BlockChristmasLeaves extends AetherBlock
         toCheck.offer(new Loc(px, py, pz));
         final int bLeaves = super.id;
         while (!toCheck.isEmpty()) {
-            final Loc curLoc = toCheck.poll();
+            final Loc curLoc = (Loc) toCheck.poll();
             if (checked.contains(curLoc)) {
                 continue;
             }

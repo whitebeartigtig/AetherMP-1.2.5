@@ -172,16 +172,16 @@ public class EntityPhyg extends EntityAetherAnimal
         }
         if (this.getSaddled && !((Entity)this).world.isStatic && (((Entity)this).passenger == null || ((Entity)this).passenger == entityplayer)) {
             entityplayer.mount((Entity)this);
-            mod_Aether.giveAchievement(AetherAchievements.flyingPig, entityplayer);
+            //mod_Aether.giveAchievement(AetherAchievements.flyingPig, entityplayer);
             return true;
         }
         return super.b(entityplayer);
     }
-    
+    /*
     protected void dropFewItems(final boolean var1, final int var2) {
         this.a(((Entity)this).random.nextBoolean() ? Item.FEATHER.id : Item.PORK.id, 1 * (mod_Aether.equippedSkyrootSword() ? 2 : 1));
     }
-    
+    */
     public int getMaxHealth() {
         return 20;
     }

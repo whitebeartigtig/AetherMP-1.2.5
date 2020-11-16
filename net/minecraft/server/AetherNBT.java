@@ -40,6 +40,6 @@ public class AetherNBT
     }
     
     public static File GetWorldSaveLocation(final World world) {
-        return ((WorldNBTStorage)world.saveHandler).getSaveDirectory();
+        return ((WorldNBTStorage)world.dataManager).getDirectory();
     }
 }

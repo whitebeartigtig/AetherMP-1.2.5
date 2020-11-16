@@ -203,11 +203,11 @@ public class EntityAechorPlant extends EntityAetherAnimal
         this.b(0.75f + this.size * 0.125f, 0.5f + this.size * 0.075f);
         this.setPosition(((Entity)this).locX, ((Entity)this).locY, ((Entity)this).locZ);
     }
-    
+    /*
     protected void dropFewItems(final boolean var1, final int var2) {
         this.b(AetherItems.AechorPetal.id, 2 * (mod_Aether.equippedSkyrootSword() ? 2 : 1));
     }
-    
+    */
     public int getMaxHealth() {
         return 20;
     }

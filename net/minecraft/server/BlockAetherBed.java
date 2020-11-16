@@ -14,7 +14,7 @@ public class BlockAetherBed extends Block
         this.j();
     }
     
-    public boolean blockActivated(final World world, int i, final int j, int k, final EntityPlayer entityplayer) {
+    public boolean blockActivated(final World world, int i, final int j, int k, final EntityHuman entityplayer) {
         if (world.isStatic) {
             return true;
         }
@@ -29,17 +29,17 @@ public class BlockAetherBed extends Block
             l = world.getData(i, j, k);
         }
         if (isBedOccupied(l)) {
-            EntityPlayer entityplayer2 = null;
-            for (final EntityPlayer entityplayer3 : world.playerEntities) {
-                if (entityplayer3.isSleeping()) {
-                    final ChunkCoordinates chunkcoordinates = entityplayer3.getBed();
+            EntityHuman entityhuman2 = null;
+            for (final EntityHuman entityhuman3 : world.players) {
+                if (entityhuman3.isSleeping()) {
+                    final ChunkCoordinates chunkcoordinates = entityhuman3.getBed();
                     if (chunkcoordinates.x != i || chunkcoordinates.y != j || chunkcoordinates.z != k) {
                         continue;
                     }
-                    entityplayer2 = entityplayer3;
+                    entityhuman2 = entityhuman3;
                 }
             }
-            if (entityplayer2 != null) {
+            if (entityhuman2 != null) {
                 entityplayer.a("tile.bed.occupied");
                 return true;
             }

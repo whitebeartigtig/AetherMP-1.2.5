@@ -38,17 +38,17 @@ public class AetherPoison
     }
     
     public static void distractEntity(final Entity ent) {
-        final double gauss = AetherPoison.mc.theWorld.rand.nextGaussian();
-        final double newMotD = AetherPoison.motDFac * gauss;
-        AetherPoison.motD = AetherPoison.motTaper * newMotD + (1.0 - AetherPoison.motTaper) * AetherPoison.motD;
+        //final double gauss = AetherPoison.mc.theWorld.rand.nextGaussian();
+        //final double newMotD = AetherPoison.motDFac * gauss;
+        //AetherPoison.motD = AetherPoison.motTaper * newMotD + (1.0 - AetherPoison.motTaper) * AetherPoison.motD;
         ent.motX += AetherPoison.motD;
         ent.motZ += AetherPoison.motD;
-        final double newRotD = AetherPoison.rotDFac * gauss;
-        AetherPoison.rotD = AetherPoison.rotTaper * newRotD + (1.0 - AetherPoison.rotTaper) * AetherPoison.rotD;
+        //final double newRotD = AetherPoison.rotDFac * gauss;
+       // AetherPoison.rotD = AetherPoison.rotTaper * newRotD + (1.0 - AetherPoison.rotTaper) * AetherPoison.rotD;
         ent.yaw += (float)AetherPoison.rotD;
         ent.pitch += (float)AetherPoison.rotD;
     }
-    
+    /*
     public static void tickRender(final MinecraftServer game) {
         if (AetherPoison.world != game.theWorld || (game.thePlayer != null && (((Entity)game.thePlayer).dead || ((EntityLiving)game.thePlayer).health <= 0))) {
             AetherPoison.world = game.theWorld;

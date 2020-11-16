@@ -20,7 +20,7 @@ public class BlockBerryBush extends BlockAetherFlower
     }
     
     public void onBlockRemoval(final World world, final int x, final int y, final int z) {
-        final EntityPlayer entityplayer = (EntityPlayer)ModLoader.getMinecraftInstance().thePlayer;
+        //final EntityPlayer entityplayer = (EntityPlayer)ModLoader.getMinecraftInstance().thePlayer;
         final Random random = new Random();
         int min;
         int max;
@@ -33,7 +33,7 @@ public class BlockBerryBush extends BlockAetherFlower
             max = 2;
         }
         final int randomNum = random.nextInt(max - min + 1) + min;
-        entityplayer.a(StatisticList.C[((Block)this).id], 1);
+        //entityplayer.a(StatisticList.C[((Block)this).id], 1);
         if (randomNum != 0) {
             final ItemStack stack = new ItemStack(AetherItems.BlueBerry.id, randomNum, 0);
             final EntityItem entityitem = new EntityItem(world, (double)x, (double)y, (double)z, stack);

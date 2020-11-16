@@ -235,7 +235,7 @@ public class EntityValkyrie extends EntityDungeonMob implements IAetherBoss
     
     private void chatItUp(final String s) {
         if (this.chatTime <= 0 && this.otherDimension()) {
-            ModLoader.getMinecraftInstance().ingameGUI.addChatMessage(s);
+            //ModLoader.getMinecraftInstance().ingameGUI.addChatMessage(s);
             this.chatTime = 60;
         }
     }
@@ -507,6 +507,7 @@ public class EntityValkyrie extends EntityDungeonMob implements IAetherBoss
         ((Entity)this).world.setRawTypeIdAndData(this.dungeonX + 17, this.dungeonY + 1, this.dungeonZ + 9, Block.TRAP_DOOR.id, 2);
         ((Entity)this).world.setRawTypeIdAndData(this.dungeonX + 16, this.dungeonY + 1, this.dungeonZ + 10, Block.TRAP_DOOR.id, 3);
         ((Entity)this).world.setRawTypeIdAndData(this.dungeonX + 17, this.dungeonY + 1, this.dungeonZ + 10, Block.TRAP_DOOR.id, 2);
+        /*
         mod_Aether.giveAchievement(AetherAchievements.defeatSilver);
         for (int x = this.dungeonX - 26; x < this.dungeonX + 29; ++x) {
             for (int y = this.dungeonY - 1; y < this.dungeonY + 22; ++y) {
@@ -523,8 +524,9 @@ public class EntityValkyrie extends EntityDungeonMob implements IAetherBoss
                     }
                 }
             }
+            */
         }
-    }
+    
     
     public void setDungeon(final int i, final int j, final int k) {
         this.hasDungeon = true;

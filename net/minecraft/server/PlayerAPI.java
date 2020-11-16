@@ -906,16 +906,16 @@ public final class PlayerAPI
             addSorting(var1, PlayerAPI.allBaseAfterInferiors, var2.getAfterWriteEntityToNBTInferiors());
         }
         addMethod(var1, var0, PlayerAPI.beforeLocalConstructingHookTypes, "beforeLocalConstructing", MinecraftServer.class, World.class, Session.class, Integer.TYPE);
-        addMethod(var1, var0, PlayerAPI.afterLocalConstructingHookTypes, "afterLocalConstructing", Minecraft.class, World.class, Session.class, Integer.TYPE);
+        addMethod(var1, var0, PlayerAPI.afterLocalConstructingHookTypes, "afterLocalConstructing", MinecraftServer.class, World.class, Session.class, Integer.TYPE);
         addMethod(var1, var0, PlayerAPI.beforeAddExhaustionHookTypes, "beforeAddExhaustion", Float.TYPE);
         addMethod(var1, var0, PlayerAPI.overrideAddExhaustionHookTypes, "addExhaustion", Float.TYPE);
         addMethod(var1, var0, PlayerAPI.afterAddExhaustionHookTypes, "afterAddExhaustion", Float.TYPE);
         addMethod(var1, var0, PlayerAPI.beforeAddMovementStatHookTypes, "beforeAddMovementStat", Double.TYPE, Double.TYPE, Double.TYPE);
         addMethod(var1, var0, PlayerAPI.overrideAddMovementStatHookTypes, "addMovementStat", Double.TYPE, Double.TYPE, Double.TYPE);
         addMethod(var1, var0, PlayerAPI.afterAddMovementStatHookTypes, "afterAddMovementStat", Double.TYPE, Double.TYPE, Double.TYPE);
-        addMethod(var1, var0, PlayerAPI.beforeAddStatHookTypes, "beforeAddStat", StatBase.class, Integer.TYPE);
-        addMethod(var1, var0, PlayerAPI.overrideAddStatHookTypes, "addStat", StatBase.class, Integer.TYPE);
-        addMethod(var1, var0, PlayerAPI.afterAddStatHookTypes, "afterAddStat", StatBase.class, Integer.TYPE);
+        addMethod(var1, var0, PlayerAPI.beforeAddStatHookTypes, "beforeAddStat", Statistic.class, Integer.TYPE);
+        addMethod(var1, var0, PlayerAPI.overrideAddStatHookTypes, "addStat", Statistic.class, Integer.TYPE);
+        addMethod(var1, var0, PlayerAPI.afterAddStatHookTypes, "afterAddStat", Statistic.class, Integer.TYPE);
         addMethod(var1, var0, PlayerAPI.beforeAttackEntityFromHookTypes, "beforeAttackEntityFrom", DamageSource.class, Integer.TYPE);
         addMethod(var1, var0, PlayerAPI.overrideAttackEntityFromHookTypes, "attackEntityFrom", DamageSource.class, Integer.TYPE);
         addMethod(var1, var0, PlayerAPI.afterAttackEntityFromHookTypes, "afterAttackEntityFrom", DamageSource.class, Integer.TYPE);
@@ -1535,13 +1535,13 @@ public final class PlayerAPI
         PlayerAPI.initialized = true;
     }
     
-    public static void beforeLocalConstructing(final EntityPlayer var0, final Minecraft var1, final World var2, final Session var3, final int var4) {
+    public static void beforeLocalConstructing(final EntityPlayer var0, final MinecraftServer var1, final World var2, final Session var3, final int var4) {
         if (var0.playerAPI != null) {
             var0.playerAPI.beforeLocalConstructing(var1, var2, var3, var4);
         }
     }
     
-    public static void afterLocalConstructing(final EntityPlayer var0, final Minecraft var1, final World var2, final Session var3, final int var4) {
+    public static void afterLocalConstructing(final EntityPlayer var0, final MinecraftServer var1, final World var2, final Session var3, final int var4) {
         if (var0.playerAPI != null) {
             var0.playerAPI.afterLocalConstructing(var1, var2, var3, var4);
         }
@@ -1953,7 +1953,7 @@ public final class PlayerAPI
         return var1;
     }
     
-    protected static void addStat(final EntityPlayer var0, final StatBase var1, final int var2) {
+    protected static void addStat(final EntityPlayer var0, final Statistic var1, final int var2) {
         if (var0.playerAPI != null) {
             var0.playerAPI.addStat(var1, var2);
         }
@@ -4534,7 +4534,7 @@ public final class PlayerAPI
             var0.playerAPI.setPositionAndRotation(var1, var3, var5, var7, var8);
         }
         else {
-            var0.localSetPositionAndRotation(var1, var3, var5, var7, var8);
+            var0.setLocation(var1, var3, var5, var7, var8);
         }
     }
     
@@ -4548,7 +4548,7 @@ public final class PlayerAPI
             this.overrideSetPositionAndRotationHooks[this.overrideSetPositionAndRotationHooks.length - 1].setPositionAndRotation(var1, var3, var5, var7, var8);
         }
         else {
-            this.player.localSetPositionAndRotation(var1, var3, var5, var7, var8);
+            this.player.setLocation(var1, var3, var5, var7, var8);
         }
         if (this.afterSetPositionAndRotationHooks != null) {
             for (int var9 = 0; var9 < this.afterSetPositionAndRotationHooks.length; ++var9) {
@@ -4579,7 +4579,7 @@ public final class PlayerAPI
             var4 = var0.playerAPI.sleepInBedAt(var1, var2, var3);
         }
         else {
-            var4 = var0.localSleepInBedAt(var1, var2, var3);
+            var4 = var0.a(var1, var2, var3);
         }
         return var4;
     }
@@ -4595,7 +4595,7 @@ public final class PlayerAPI
             var5 = this.overrideSleepInBedAtHooks[this.overrideSleepInBedAtHooks.length - 1].sleepInBedAt(var1, var2, var3);
         }
         else {
-            var5 = this.player.localSleepInBedAt(var1, var2, var3);
+            var5 = this.player.a(var1, var2, var3);
         }
         if (this.afterSleepInBedAtHooks != null) {
             for (int var6 = 0; var6 < this.afterSleepInBedAtHooks.length; ++var6) {

@@ -56,7 +56,7 @@ public class EntityMoa extends EntityAetherAnimal
     
     public void onUpdate() {
         super.F_();
-        ((Entity)this).cd = (((Entity)this).passenger == EntityMoa.mc.thePlayer);
+        //((Entity)this).cd = (((Entity)this).passenger == EntityMoa.mc.thePlayer);
     }
     
     public void onLivingUpdate() {
@@ -280,11 +280,11 @@ public class EntityMoa extends EntityAetherAnimal
     protected boolean canTriggerWalking() {
         return ((Entity)this).onGround;
     }
-    
+    /*
     protected void dropFewItems(final boolean var1, final int var2) {
         this.a(Item.FEATHER.id, 3 * (mod_Aether.equippedSkyrootSword() ? 2 : 1));
     }
-    
+    */
     public int getMaxHealth() {
         return 20;
     }

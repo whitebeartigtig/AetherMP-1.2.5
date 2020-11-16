@@ -17,9 +17,11 @@ public class BlockQuicksoil extends Block implements ITextureProvider
     
     public void harvestBlock(final World world, final EntityPlayer entityplayer, final int i, final int j, final int k, final int l) {
         entityplayer.a(StatisticList.C[super.id], 1);
+        /*
         if (l == 0 && mod_Aether.equippedSkyrootShovel()) {
             this.b(world, i, j, k, l, 0);
         }
+        */
         this.b(world, i, j, k, l, 0);
     }
     

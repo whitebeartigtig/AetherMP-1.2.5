@@ -56,16 +56,19 @@ public class ItemSkyrootBucket extends AetherItem
         final double d4 = 5.0;
         final Vec3D vec3d2 = vec3d.add(f8 * d4, f9 * d4, f10 * d4);
         final MovingObjectPosition movingobjectposition = world.rayTrace(vec3d, vec3d2, itemstack.getData() == 0);
+        /*
         if (itemstack.getData() == 2 && (ModLoader.getMinecraftInstance().objectMouseOver == null || ModLoader.getMinecraftInstance().objectMouseOver.entityHit == null || !(ModLoader.getMinecraftInstance().objectMouseOver.entityHit instanceof EntityAechorPlant))) {
             if (AetherPoison.afflictPoison()) {
                 itemstack.setData(0);
                 return itemstack;
             }
         }
+        
         else if (itemstack.getData() == 3 && AetherPoison.curePoison()) {
             itemstack.setData(0);
             return itemstack;
         }
+        */
         if (movingobjectposition != null && movingobjectposition.type == EnumMovingObjectType.TILE && (itemstack.getData() == 0 || itemstack.getData() == Block.WATER.id)) {
             int i = movingobjectposition.b;
             int j = movingobjectposition.c;
@@ -116,11 +119,14 @@ public class ItemSkyrootBucket extends AetherItem
                 }
             }
         }
+        /*
         else if (itemstack.getData() == 0 && ModLoader.getMinecraftInstance().objectMouseOver != null && ModLoader.getMinecraftInstance().objectMouseOver.entityHit != null && (ModLoader.getMinecraftInstance().objectMouseOver.entityHit instanceof EntityCow || ModLoader.getMinecraftInstance().objectMouseOver.entityHit instanceof EntityFlyingCow)) {
             itemstack.setData(1);
             return itemstack;
         }
         return itemstack;
+        */
+		return itemstack;
     }
     
     static {

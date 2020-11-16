@@ -114,11 +114,12 @@ public class EntityZephyrSnowball extends Entity
         if (entity != null) {
             movingobjectposition = new MovingObjectPosition(entity);
         }
+        /*
         if (movingobjectposition != null) {
             final EntityPlayer player = (EntityPlayer)ModLoader.getMinecraftInstance().thePlayer;
             if (movingobjectposition.entity != null) {
                 if (!movingobjectposition.entity.damageEntity(DamageSource.mobAttack(this.shootingEntity), 0)) {}
-                if (movingobjectposition.entity instanceof EntityPlayerSP && player.inventory.armor[0] != null && player.inventory.armor[0].id == AetherItems.SentryBoots.id) {
+                if (movingobjectposition.entity instanceof EntityHuman && player.inventory.armor[0] != null && player.inventory.armor[0].id == AetherItems.SentryBoots.id) {
                     this.die();
                 }
                 else {
@@ -132,6 +133,7 @@ public class EntityZephyrSnowball extends Entity
             }
             this.die();
         }
+        */
         super.locX += super.motX;
         super.locY += super.motY;
         super.locZ += super.motZ;

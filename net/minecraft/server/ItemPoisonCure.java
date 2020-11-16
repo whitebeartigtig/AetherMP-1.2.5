@@ -11,11 +11,12 @@ public class ItemPoisonCure extends ItemFood implements ITextureProvider
     public ItemPoisonCure(final int i, final int j, final boolean flag) {
         super(i, j, flag);
     }
-    
+    /*
     public ItemStack onFoodEaten(final ItemStack itemstack, final World world, final EntityPlayer entityplayer) {
         if (AetherPoison.curePoison()) {
             --itemstack.count;
         }
         return itemstack;
     }
+    */
 }
